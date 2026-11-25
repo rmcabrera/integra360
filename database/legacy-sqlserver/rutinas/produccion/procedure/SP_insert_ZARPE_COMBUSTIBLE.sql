@@ -1,0 +1,31 @@
+CREATE PROCEDURE [dbo].[SP_insert_ZARPE_COMBUSTIBLE]
+	@CODI_ZARP_1 [char](10),
+	@CODI_PETR_2 [char](3),
+	@SER_FACT_3 [char](5),
+	@NRO_FACT_4 [char](10),
+	@CANT_PETR_5 [numeric](12, 3),
+	@PREC_PETR_6 [numeric](12, 4),
+	@TIPO_DOC_7 [char](1),
+	@ESTADO_8 [char](1)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [ZARPE_COMBUSTIBLE] 
+	 ( [CODI_ZARP],
+	 [CODI_PETR],
+	 [SER_FACT],
+	 [NRO_FACT],
+	 [CANT_PETR],
+	 [PREC_PETR],
+	 [TIPO_DOC],
+	 [ESTADO]) 
+ 
+VALUES 
+	( @CODI_ZARP_1,
+	 @CODI_PETR_2,
+	 @SER_FACT_3,
+	 @NRO_FACT_4,
+	 @CANT_PETR_5,
+	 @PREC_PETR_6,
+	 @TIPO_DOC_7,
+	 @ESTADO_8)
+GO

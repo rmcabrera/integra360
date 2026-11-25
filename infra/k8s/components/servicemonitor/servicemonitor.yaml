@@ -1,0 +1,22 @@
+# Requiere el CRD ServiceMonitor del Prometheus Operator (kube-prometheus-stack).
+# Selecciona todos los microservicios (etiqueta sige.service) y raspa /q/metrics.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sige-microservicios
+  labels:
+    app.kubernetes.io/part-of: sige
+    release: kube-prometheus-stack
+spec:
+  namespaceSelector:
+    matchNames:
+      - sige
+  selector:
+    matchExpressions:
+      - key: sige.service
+        operator: Exists
+  endpoints:
+    - port: http
+      path: /q/metrics
+      interval: 30s
+      scheme: http

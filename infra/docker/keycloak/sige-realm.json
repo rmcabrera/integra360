@@ -1,0 +1,61 @@
+{
+  "realm": "sige",
+  "enabled": true,
+  "displayName": "SIGE - Sistema Integrado",
+  "loginTheme": "keycloak",
+  "internationalizationEnabled": true,
+  "supportedLocales": ["es"],
+  "defaultLocale": "es",
+  "sslRequired": "external",
+  "bruteForceProtected": true,
+  "passwordPolicy": "length(10) and digits(1) and upperCase(1) and notUsername",
+  "accessTokenLifespan": 900,
+  "ssoSessionIdleTimeout": 3600,
+  "roles": {
+    "realm": [
+      { "name": "user", "description": "Acceso de lectura al sistema" },
+      { "name": "admin", "description": "Administrador: escritura en todos los modulos" },
+      { "name": "seguridad-editor" },
+      { "name": "maestros-editor" },
+      { "name": "logistica-editor" },
+      { "name": "ventas-editor" },
+      { "name": "contabilidad-editor" },
+      { "name": "finanzas-editor" },
+      { "name": "rrhh-editor" },
+      { "name": "produccion-editor" }
+    ]
+  },
+  "defaultRoles": ["user"],
+  "clients": [
+    {
+      "clientId": "sige-frontend",
+      "name": "SIGE Web (Angular)",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "attributes": { "pkce.code.challenge.method": "S256", "post.logout.redirect.uris": "+" },
+      "redirectUris": ["${SIGE_FRONTEND_URL}/*", "http://localhost:4200/*"],
+      "webOrigins": ["+"]
+    },
+    {
+      "clientId": "sige-backend",
+      "name": "SIGE microservicios",
+      "bearerOnly": true,
+      "publicClient": false
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "firstName": "Administrador",
+      "lastName": "SIGE",
+      "email": "admin@sige.local",
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "${SIGE_ADMIN_PASSWORD}", "temporary": true }],
+      "realmRoles": ["user", "admin"],
+      "requiredActions": ["UPDATE_PASSWORD"]
+    }
+  ]
+}

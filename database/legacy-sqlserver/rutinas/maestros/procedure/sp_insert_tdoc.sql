@@ -1,0 +1,19 @@
+CREATE PROCEDURE [dbo].[sp_insert_tdoc]
+	@CODI_TIPO_DOCU [char](4),
+	@DESC_TIPO_DOCU [varchar](150),
+	@TIPO_CONT [char](1),
+	@NEMO [char](3)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO .[TIPO_DOCUMENTO] 
+	 ( [CODI_TIPO_DOCU],
+	 [DESC_TIPO_DOCU],
+	 [TIPO_CONT],
+	 [NEMO]) 
+ 
+VALUES 
+	( @CODI_TIPO_DOCU,
+	 @DESC_TIPO_DOCU,
+	 @TIPO_CONT,
+	 @NEMO)
+GO

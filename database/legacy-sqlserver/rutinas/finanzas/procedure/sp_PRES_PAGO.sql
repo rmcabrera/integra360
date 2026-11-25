@@ -1,0 +1,16 @@
+CREATE PROCEDURE [dbo].[sp_PRES_PAGO]
+	@CODI_PRES_1 [char](4),
+	@DESC_PRES_2 [char](40),
+	@GRUPO_3 [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [SI_ROSA].[dbo].[PRES_PAGO] 
+	 ( [CODI_PRES],
+	 [DESC_PRES],
+	 [GRUPO]) 
+ 
+VALUES 
+	( @CODI_PRES_1,
+	 @DESC_PRES_2,
+	 @GRUPO_3)
+GO

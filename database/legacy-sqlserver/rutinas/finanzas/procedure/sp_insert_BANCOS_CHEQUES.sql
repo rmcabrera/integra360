@@ -1,0 +1,46 @@
+CREATE PROCEDURE [dbo].[sp_insert_BANCOS_CHEQUES]
+	@NRO_CUEN_1 [char](7),
+	@CODI_MONE_2 [char](2),
+	@NRO_TALON_3 [char](6),
+	@NRO_INIC_CHEQ_4 [char](8),
+	@NRO_FIN_CHEQ_5 [char](8),
+	@CANT_CHEQ_6 [numeric](18, 0),
+	@CODI_USUA_7 [char](5),
+	@CANT_CHEQ_GIRA_8 [numeric](18, 0),
+	@CANT_CHEQ_ANUL_9 [numeric](18, 0),
+	@CANT_CHEQ_SALD_10 [numeric](18, 0),
+	@FECHA_11 [datetime],
+	@CHEQ_ULTI_12 [char](8),
+	@SITU_CHEQ_13 [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [BANCOS_CHEQUES] 
+	 ( [NRO_CUEN],
+	 [CODI_MONE],
+	 [NRO_TALON],
+	 [NRO_INIC_CHEQ],
+	 [NRO_FIN_CHEQ],
+	 [CANT_CHEQ],
+	 [CODI_USUA],
+	 [CANT_CHEQ_GIRA],
+	 [CANT_CHEQ_ANUL],
+	 [CANT_CHEQ_SALD],
+	 [FECHA],
+	 [CHEQ_ULTI], 
+	 [SITU_CHEQ]) 
+ 
+VALUES 
+	( @NRO_CUEN_1,
+	 @CODI_MONE_2,
+	 @NRO_TALON_3,
+	 @NRO_INIC_CHEQ_4,
+	 @NRO_FIN_CHEQ_5,
+	 @CANT_CHEQ_6,
+	 @CODI_USUA_7,
+	 @CANT_CHEQ_GIRA_8,
+	 @CANT_CHEQ_ANUL_9,
+	 @CANT_CHEQ_SALD_10,
+	 @FECHA_11,
+	 @CHEQ_ULTI_12,
+	@SITU_CHEQ_13)
+GO

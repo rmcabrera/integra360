@@ -1,0 +1,12 @@
+CREATE VIEW [dbo].[V_FACTURACION_COMERCIAL]
+AS
+SELECT     F.CODI_FACT, F.CODI_ALMA, F.FECH_FACT, F.CODI_TIPO_DOCU, D.NEMO, F.SER_FACT, F.NRO_FACT, cp.DENOMINACION, F.CODI_MONE, 
+                      F.TCAMBIO, TP.Desc_Tipo_Medio_Pago, F.VALO_FACT, F.DSCTO_FACT, F.SUBTOTA_FACT, F.IGV_FACT, F.TOTA_FACT, F.ESTADO, TI.desc_imp, 
+                      F.contabilizado
+FROM         dbo.FACTURA F INNER JOIN
+                      dbo.ALMACEN A ON F.CODI_ALMA = A.CODI_ALMA INNER JOIN
+                      dbo.TIPO_DOCUMENTO D ON F.CODI_TIPO_DOCU = D.CODI_TIPO_DOCU INNER JOIN
+                      dbo.CLIENTE_PROVEEDOR cp ON F.CODI_CLIE_PROV = cp.CODI_CLIE_PROV INNER JOIN
+                      dbo.TIPO_PAGO TP ON F.CODI_TIPO_PAGO = TP.Codi_Tipo_Medio_Pago INNER JOIN
+                      dbo.TIPO_IMPUESTOS TI ON F.COD_IMP = TI.cod_imp
+GO

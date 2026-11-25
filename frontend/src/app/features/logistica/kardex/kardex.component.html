@@ -1,0 +1,113 @@
+<div class="page">
+  <h1>Kardex</h1>
+
+  <section class="card mb-2">
+    <div class="card-body">
+      <div class="row">
+        <div class="field typeahead">
+          <label for="prod">Producto</label>
+          <input id="prod" type="search" autocomplete="off" placeholder="Buscar producto…"
+                 [ngModel]="productQuery()" (ngModelChange)="onQueryChange($event)" />
+          @if (productResults().length) {
+            <ul class="results" role="listbox">
+              @for (p of productResults(); track p.codiProd) {
+                <li>
+                  <button type="button" (click)="select(p)">
+                    <strong>{{ p.codiProd }}</strong> — {{ p.descProd }}
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+        <div class="field">
+          <label for="periodo">Periodo</label>
+          <input id="periodo" type="number" [ngModel]="periodo()" (ngModelChange)="periodo.set($event)" />
+        </div>
+        <div class="field">
+          <label for="almacen">Almacén</label>
+          <input id="almacen" type="text" placeholder="(todos)" [ngModel]="almacen()"
+                 (ngModelChange)="almacen.set($event)" />
+        </div>
+        <div class="field">
+          <label>&nbsp;</label>
+          <button type="button" class="btn btn-primary" (click)="consultar()" [disabled]="!selected()">
+            Consultar
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  @if (stock().length) {
+    <section class="card mb-2">
+      <div class="card-body">
+        <h2>Stock por almacén</h2>
+        <div class="table-wrap">
+          <table class="data">
+            <thead>
+              <tr><th>Almacén</th><th class="num">Stock</th><th class="num">Precio promedio</th></tr>
+            </thead>
+            <tbody>
+              @for (s of stock(); track s.codiAlma) {
+                <tr>
+                  <td>{{ s.codiAlma }}</td>
+                  <td class="num">{{ s.stockAlma }}</td>
+                  <td class="num">{{ s.precPromAlma }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  }
+
+  @if (consulted()) {
+    <section class="card">
+      <div class="card-body">
+        <h2>Movimientos</h2>
+        <div class="table-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>I/O</th>
+                <th>Concepto</th>
+                <th>Serie</th>
+                <th>Documento</th>
+                <th class="num">Ingreso</th>
+                <th class="num">Salida</th>
+                <th class="num">Saldo</th>
+                <th class="num">Prec. prom.</th>
+                <th class="num">Valor saldo</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (r of rows(); track r.codiKard) {
+                <tr>
+                  <td>{{ r.fechTran }}</td>
+                  <td>{{ r.iO }}</td>
+                  <td>{{ r.concepto }}</td>
+                  <td>{{ r.nroSeri }}</td>
+                  <td>{{ r.nroDocu }}</td>
+                  <td class="num">{{ r.cantIngr }}</td>
+                  <td class="num">{{ r.cantSali }}</td>
+                  <td class="num">{{ r.cantSaldo }}</td>
+                  <td class="num">{{ r.precProm }}</td>
+                  <td class="num">{{ r.valoSaldo }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="10" class="text-center muted">
+                    {{ loading() ? 'Cargando…' : 'Sin movimientos para el periodo' }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  }
+</div>

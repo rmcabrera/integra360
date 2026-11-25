@@ -1,0 +1,14 @@
+CREATE VIEW [dbo].[V_Ing_Aliaga]
+AS
+SELECT     TOP 100 PERCENT MES, EMBARCACION, COSTO, SUM(IMPORTE) AS IMPORTE
+FROM         (SELECT     dbo.CUENTAS_CONTABLE.DESC_CUEN AS COSTO, dbo.UNID_OPER.DESC_UNID_OPER AS EMBARCACION, 
+                                              MONTH(dbo.DOCU_SALI_MATE.FECH_EMIS) AS MES, 
+                                              dbo.DETALLE_DOCU_SALI.CANTIDAD * dbo.DETALLE_DOCU_SALI.PREC_PROM AS IMPORTE
+                       FROM          dbo.DETALLE_DOCU_SALI INNER JOIN
+                                              dbo.DOCU_SALI_MATE ON dbo.DETALLE_DOCU_SALI.CODI_DOCU_SALI = dbo.DOCU_SALI_MATE.CODI_DOCU_SALI AND 
+                                              dbo.DETALLE_DOCU_SALI.CODI_DOCU_SALI = dbo.DOCU_SALI_MATE.CODI_DOCU_SALI INNER JOIN
+                                              dbo.CUENTAS_CONTABLE ON dbo.DETALLE_DOCU_SALI.NRO_CUEN = dbo.CUENTAS_CONTABLE.NRO_CUEN INNER JOIN
+                                              dbo.UNID_OPER ON dbo.DOCU_SALI_MATE.CODI_UNID_OPER_RECE = dbo.UNID_OPER.CODI_UNID_OPER) AUX
+GROUP BY MES, EMBARCACION, COSTO
+ORDER BY EMBARCACION, MES, COSTO
+GO

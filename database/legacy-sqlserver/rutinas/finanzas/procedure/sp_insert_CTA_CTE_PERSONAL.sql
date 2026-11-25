@@ -1,0 +1,28 @@
+CREATE PROCEDURE [dbo].[sp_insert_CTA_CTE_PERSONAL]
+	@CODI_CTA_CTE_1 [char](4),
+	@CODI_PERS_2 [char](5),
+	@CODI_banc [char](2),
+	@NRO_CUEN_3 [char](7),
+	@NRO_CTA_CTE_4 [varchar](20),
+	@CODI_MONE_5 [char](2),
+	@TIPO_CTA_CTE [char](10)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [CTA_CTE_PERSONAL] 
+	 ( [CODI_CTA_CTE],
+	 [CODI_PERS],
+	 [CODI_banc],
+	 [NRO_CUEN],
+	 [NRO_CTA_CTE],
+	 [CODI_MONE],
+	 [TIPO_CTA_CTE]) 
+ 
+VALUES 
+	( @CODI_CTA_CTE_1,
+	 @CODI_PERS_2,
+	 @CODI_banc,
+	 @NRO_CUEN_3,
+	 @NRO_CTA_CTE_4,
+	 @CODI_MONE_5,
+	 @TIPO_CTA_CTE)
+GO

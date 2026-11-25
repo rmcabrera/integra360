@@ -1,0 +1,38 @@
+# Rutas del API gateway: /api/<servicio>/** -> ms-<servicio>; el resto -> frontend (Angular)
+http:
+  middlewares:
+    secure-headers:
+      headers:
+        frameDeny: true
+        contentTypeNosniff: true
+        referrerPolicy: strict-origin-when-cross-origin
+    api-ratelimit:
+      rateLimit:
+        average: 200
+        burst: 400
+    compress:
+      compress: {}
+
+  routers:
+    seguridad:    { rule: "PathPrefix(`/api/seguridad`)",    service: seguridad,    middlewares: [secure-headers, api-ratelimit, compress] }
+    maestros:     { rule: "PathPrefix(`/api/maestros`)",     service: maestros,     middlewares: [secure-headers, api-ratelimit, compress] }
+    logistica:    { rule: "PathPrefix(`/api/logistica`)",    service: logistica,    middlewares: [secure-headers, api-ratelimit, compress] }
+    ventas:       { rule: "PathPrefix(`/api/ventas`)",       service: ventas,       middlewares: [secure-headers, api-ratelimit, compress] }
+    contabilidad: { rule: "PathPrefix(`/api/contabilidad`)", service: contabilidad, middlewares: [secure-headers, api-ratelimit, compress] }
+    finanzas:     { rule: "PathPrefix(`/api/finanzas`)",     service: finanzas,     middlewares: [secure-headers, api-ratelimit, compress] }
+    rrhh:         { rule: "PathPrefix(`/api/rrhh`)",         service: rrhh,         middlewares: [secure-headers, api-ratelimit, compress] }
+    produccion:   { rule: "PathPrefix(`/api/produccion`)",   service: produccion,   middlewares: [secure-headers, api-ratelimit, compress] }
+    auth:         { rule: "PathPrefix(`/realms`) || PathPrefix(`/resources`)", service: keycloak }
+    frontend:     { rule: "PathPrefix(`/`)", service: frontend, priority: 1, middlewares: [secure-headers, compress] }
+
+  services:
+    seguridad:    { loadBalancer: { servers: [{ url: "http://ms-seguridad:8080" }],    healthCheck: { path: /q/health/ready, interval: 15s } } }
+    maestros:     { loadBalancer: { servers: [{ url: "http://ms-maestros:8080" }],     healthCheck: { path: /q/health/ready, interval: 15s } } }
+    logistica:    { loadBalancer: { servers: [{ url: "http://ms-logistica:8080" }],    healthCheck: { path: /q/health/ready, interval: 15s } } }
+    ventas:       { loadBalancer: { servers: [{ url: "http://ms-ventas:8080" }],       healthCheck: { path: /q/health/ready, interval: 15s } } }
+    contabilidad: { loadBalancer: { servers: [{ url: "http://ms-contabilidad:8080" }], healthCheck: { path: /q/health/ready, interval: 15s } } }
+    finanzas:     { loadBalancer: { servers: [{ url: "http://ms-finanzas:8080" }],     healthCheck: { path: /q/health/ready, interval: 15s } } }
+    rrhh:         { loadBalancer: { servers: [{ url: "http://ms-rrhh:8080" }],         healthCheck: { path: /q/health/ready, interval: 15s } } }
+    produccion:   { loadBalancer: { servers: [{ url: "http://ms-produccion:8080" }],   healthCheck: { path: /q/health/ready, interval: 15s } } }
+    keycloak:     { loadBalancer: { servers: [{ url: "http://keycloak:8080" }] } }
+    frontend:     { loadBalancer: { servers: [{ url: "http://frontend:8080" }] } }

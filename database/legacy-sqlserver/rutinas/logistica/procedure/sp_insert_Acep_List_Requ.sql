@@ -1,0 +1,25 @@
+CREATE PROCEDURE [dbo].[sp_insert_Acep_List_Requ]
+	@CODI_DETA_LIST_REQU [char](10),
+	@CODI_PERS [char](5),
+	@ACEPTACION [bit],
+	@NRO_JERA [smallint],
+	@FECH_ACEP [datetime],
+	@CANTIDAD [numeric](9, 2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [ACEPTACION_LISTA_REQUE] 
+	 ( [CODI_DETA_LIST_REQU],
+	 [CODI_PERS],
+	 [ACEPTACION],
+	 [NRO_JERA],
+	 [FECH_ACEP],
+	 [CANTIDAD]) 
+ 
+VALUES 
+	( @CODI_DETA_LIST_REQU,
+	 @CODI_PERS,
+	 @ACEPTACION,
+	 @NRO_JERA,
+	 @FECH_ACEP,
+	 @CANTIDAD)
+GO

@@ -1,0 +1,40 @@
+CREATE PROCEDURE [dbo].[sp_insert_SALIDA_PETROLEO]
+	@CODI_SALI_PETR_1 [char](10),
+	@CODI_TANQ_1 [char](2),
+	@CODI_TURN_1 [char](2),
+	@FECH_SALI_1 [datetime],
+	@CODI_TANQ_AUXI_1 [char](3),
+	@CANT_SALI_1 [numeric](12, 3),
+	@OBSE_SALI_1 [varchar](100),
+	@CODI_UNID_MEDI_1 [char](2),
+	@CODI_TIPO_DOCU_1 [char](4),
+	@NRO_SERI_1 [char](5),
+	@NRO_DOCU_1 [char](15)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [SALIDA_PETROLEO] 
+	 ( [CODI_SALI_PETR],
+	 [CODI_TANQ],
+	 [CODI_TURN],
+	 [FECH_SALI],
+	 [CODI_TANQ_AUXI],
+	 [CANT_SALI],
+	 [OBSE_SALI],
+	 [CODI_UNID_MEDI],
+	 [CODI_TIPO_DOCU],
+	 [NRO_SERI],
+	 [NRO_DOCU]) 
+ 
+VALUES 
+	( @CODI_SALI_PETR_1,
+	 @CODI_TANQ_1,
+	 @CODI_TURN_1,
+	 @FECH_SALI_1,
+	 @CODI_TANQ_AUXI_1,
+	 @CANT_SALI_1,
+	 @OBSE_SALI_1,
+	 @CODI_UNID_MEDI_1,
+	 @CODI_TIPO_DOCU_1,
+	 @NRO_SERI_1,
+	 @NRO_DOCU_1)
+GO

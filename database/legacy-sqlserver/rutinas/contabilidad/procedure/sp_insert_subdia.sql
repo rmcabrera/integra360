@@ -1,0 +1,16 @@
+CREATE PROCEDURE [dbo].[sp_insert_subdia]
+	@CODI_SUBD [char](2),
+	@NEMOTEC [char](1),
+	@DESCRIP [char](40)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [SUBDIARIO] 
+	 ( [CODI_SUBD],
+	 [NEMOTEC],
+	 [DESCRIP]) 
+ 
+VALUES 
+	( @CODI_SUBD,
+	 @NEMOTEC,
+	 @DESCRIP)
+GO

@@ -1,0 +1,31 @@
+CREATE PROCEDURE [dbo].[sp_insert_LICE_POR_PERS]
+	@CODI_PERS_1 [char](5),
+	@CODI_TIPO_LICE_2 [char](3),
+	@MOTIVO_3 [varchar](100),
+	@FECH_INIC_4 [datetime],
+	@FECH_TERM_5 [datetime],
+	@ESTA_ACTI_6 [bit],
+	@GOCE_HABE_7 [bit],
+	@NRO_DIAS_REMU_8 [int]
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [LICENCIAS_POR_PERSONAL] 
+	 ( [CODI_PERS],
+	 [CODI_TIPO_LICE],
+	 [MOTIVO],
+	 [FECH_INIC],
+	 [FECH_TERM],
+	 [ESTA_ACTI],
+	 [GOCE_HABE],
+	 [NRO_DIAS_REMU]) 
+ 
+VALUES 
+	( @CODI_PERS_1,
+	 @CODI_TIPO_LICE_2,
+	 @MOTIVO_3,
+	 @FECH_INIC_4,
+	 @FECH_TERM_5,
+	 @ESTA_ACTI_6,
+	 @GOCE_HABE_7,
+	 @NRO_DIAS_REMU_8)
+GO

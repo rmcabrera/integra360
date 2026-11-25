@@ -1,0 +1,16 @@
+CREATE PROCEDURE [dbo].[sp_insert_ALMACENES]
+	@CODI_ALMA_1 [char](3),
+	@DESC_ALMA_1 [varchar](50),
+	@UBIC_ALMA_1 [varchar](100)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [ALMACENES] 
+	 ( [CODI_ALMA],
+	 [DESC_ALMA],
+	 [UBIC_ALMA]) 
+ 
+VALUES 
+	( @CODI_ALMA_1,
+	 @DESC_ALMA_1,
+	 @UBIC_ALMA_1)
+GO

@@ -1,0 +1,25 @@
+CREATE PROCEDURE [dbo].[sp_insert_PAGO_ADEL]
+	@CODI_ADEL [char](6),
+	@NRO_PAGO [char](4),
+	@FECH_PAGO [datetime],
+	@CODI_MONE [char](2),
+	@MONTO [decimal](12, 2),
+	@OBSERVACION [varchar](150)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PAGOS_ADELANTOS] 
+	 ( [CODI_ADEL],
+	 [NRO_PAGO],
+	 [FECH_PAGO],
+	 [CODI_MONE],
+	 [MONTO],
+	 [OBSERVACION]) 
+ 
+VALUES 
+	(@CODI_ADEL,
+	 @NRO_PAGO,
+	 @FECH_PAGO,
+	 @CODI_MONE,
+	 @MONTO,
+	 @OBSERVACION)
+GO

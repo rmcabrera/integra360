@@ -1,0 +1,43 @@
+CREATE PROCEDURE [dbo].[sp_insert_LISTA_DE_REQUERIMIENTOS]
+	@CODI_LIST_REQU_1 [char](8),
+	@FECH_LIST_REQU_2 [datetime],
+	@CODI_PERS_RESP_3 [char](5),
+	@ESTADO_4 [char](1),
+	@CODI_UNID_OPER_SOLI_5 [char](5),
+	@CODI_UNID_OPER_DEST_6 [char](5),
+	@PEDI_TRAB_7 [char](1),
+	@MOTIVO_8 [varchar](250),
+	@TIPO_USO_9 [char](1),
+	@MANT_ACTI_10 [char](1),
+	@OBSERVACION [varchar](750),
+	@codalma [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [LISTA_DE_REQUERIMIENTOS] 
+	 ( [CODI_LIST_REQU],
+	 [FECH_LIST_REQU],
+	 [CODI_PERS_RESP],
+	 [ESTADO],
+	 [CODI_UNID_OPER_SOLI],
+	 [CODI_UNID_OPER_DEST],
+	 [PEDI_TRAB],
+	 [MOTIVO],
+	 [TIPO_USO],
+	 [MANT_ACTI],
+	 [OBSERVACION] ,
+	[codi_alma])  ---se agrego
+ 
+VALUES 
+	( @CODI_LIST_REQU_1,
+	 @FECH_LIST_REQU_2,
+	 @CODI_PERS_RESP_3,
+	 @ESTADO_4,
+	 @CODI_UNID_OPER_SOLI_5,
+	 @CODI_UNID_OPER_DEST_6,
+	 @PEDI_TRAB_7,
+	 @MOTIVO_8,
+	 @TIPO_USO_9,
+	 @MANT_ACTI_10,
+	 @OBSERVACION , @codalma )
+--COMMIT;
+GO

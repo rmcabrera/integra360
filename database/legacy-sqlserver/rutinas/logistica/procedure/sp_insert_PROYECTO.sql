@@ -1,0 +1,16 @@
+CREATE PROCEDURE [dbo].[sp_insert_PROYECTO]
+	@CODI_PROY [char](10),
+	@DESC_PROY [varchar](100),
+	@FECH_PROY [datetime]
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PROYECTO] 
+	 ( [CODI_PROY],
+	 [DESC_PROY],
+	 [FECH_PROY]) 
+ 
+VALUES 
+	(@CODI_PROY,
+	 @DESC_PROY,
+	 @FECH_PROY)
+GO

@@ -1,0 +1,25 @@
+CREATE PROCEDURE [dbo].[sp_insert_EMBA]
+	@CODI_UNID_OPER [char](5),
+	@DESC_UNID_OPER [varchar](100),
+	@CAPA_BODE [numeric](12, 3),
+	@CAPA_NETA [numeric](12, 3),
+	@NRO_MATRI [varchar](15),
+	@LUGA_CONS [varchar](50)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [EMBARCACIONES] 
+	 ( [CODI_UNID_OPER],
+	 [DESC_UNID_OPER],
+	 [CAPA_BODE],
+	 [CAPA_NETA],
+	 [NRO_MATRI],
+	 [LUGA_CONS]) 
+ 
+VALUES 
+	( @CODI_UNID_OPER,
+	 @DESC_UNID_OPER,
+	 @CAPA_BODE,
+	 @CAPA_NETA,
+	 @NRO_MATRI,
+	 @LUGA_CONS)
+GO

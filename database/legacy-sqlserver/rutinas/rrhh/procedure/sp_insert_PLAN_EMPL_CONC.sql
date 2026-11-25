@@ -1,0 +1,22 @@
+CREATE PROCEDURE [dbo].[sp_insert_PLAN_EMPL_CONC]
+	@CODI_PLAN_EMPL [char](10),
+	@CODI_CONC [char](6),
+	@AFECTO [bit],
+	@VALOR [decimal](9, 2),
+	@MONTO [decimal](9, 2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PLANILLA_EMPLEADO_CONCEPTOS] 
+	 ( [CODI_PLAN_EMPL],
+	 [CODI_CONC],
+	 [AFECTO],
+	 [VALOR],
+	 [MONTO]) 
+ 
+VALUES 
+	(@CODI_PLAN_EMPL,
+	 @CODI_CONC,
+	 @AFECTO,
+	 @VALOR,
+	 @MONTO)
+GO

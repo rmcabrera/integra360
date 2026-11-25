@@ -1,0 +1,48 @@
+CREATE PROCEDURE [dbo].[sp_update_Capt_pesc]
+	@CODI_ZARP1 [char](10),
+	@CODI_ZARP2 [char](10),
+	@CODI_UNID_OPER [char](5),
+	@CODI_PUER [char](2),
+	@ZONA_PESC [varchar](75),
+	@FECH_ZARP [datetime],
+	@FECH_ARRI [datetime],
+	@ZONA_ARRI [varchar](75),
+	@ZONA_PESC_ARRI [varchar](75),
+	@CODI_UNID_MEDI [char](2),
+	@PESC_ESTI [decimal](9, 2),
+	@PESC_REAL [decimal](9, 2),
+	@FECH_INIC_DESC [datetime],
+	@FECH_TERM_DESC [datetime],
+	@OBSE_PESC [varchar](150),
+	@CORD_CAPT [varchar](25),
+	@TEMP_CAPT [varchar](20),
+	@NUME_CALA [int],
+	@FECH_POSI_ARRI [datetime],
+	@CODI_PUER2 [char](2)
+WITH EXECUTE AS CALLER
+AS
+UPDATE [ZARPES] 
+
+SET  [CODI_ZARP]	 = @CODI_ZARP2,
+	 [CODI_UNID_OPER]	 = @CODI_UNID_OPER,
+	 [CODI_PUER]	 = @CODI_PUER,
+	 [ZONA_PESC]	 = @ZONA_PESC,
+	 [FECH_ZARP]	 = @FECH_ZARP,
+	 [FECH_ARRI]	 = @FECH_ARRI,
+	 [ZONA_ARRI]	 = @ZONA_ARRI,
+	 [ZONA_PESC_ARRI]	 = @ZONA_PESC_ARRI,
+	 [CODI_UNID_MEDI]	 = @CODI_UNID_MEDI,
+	 [PESC_ESTI]	 = @PESC_ESTI,
+	 [PESC_REAL]	 = @PESC_REAL,
+	 [FECH_INIC_DESC]	 = @FECH_INIC_DESC,
+	 [FECH_TERM_DESC]	 = @FECH_TERM_DESC,
+	 [OBSE_PESC]	 = @OBSE_PESC,
+	 [CORD_CAPT]	 = @CORD_CAPT,
+	 [TEMP_CAPT]	 = @TEMP_CAPT,
+	 [NUME_CALA]	 = @NUME_CALA,
+	 [FECH_POSI_ARRI]	 = @FECH_POSI_ARRI,
+	 [CODI_PUER2]	 = @CODI_PUER2 
+
+WHERE 
+	( [CODI_ZARP]	 = @CODI_ZARP1)
+GO

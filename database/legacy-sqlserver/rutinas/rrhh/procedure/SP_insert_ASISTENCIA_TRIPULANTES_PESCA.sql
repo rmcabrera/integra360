@@ -1,0 +1,40 @@
+CREATE PROCEDURE [dbo].[SP_insert_ASISTENCIA_TRIPULANTES_PESCA]
+	@CODI_SEMA_1 [char](8),
+	@CODI_UNID_OPER_1 [char](5),
+	@CODI_PERS_1 [char](5),
+	@CODI_CARG_1 [char](4),
+	@JUEVES_1 [char](1),
+	@VIERNES_1 [char](1),
+	@SABADO_1 [char](1),
+	@DOMINGO_1 [char](1),
+	@LUNES_1 [char](1),
+	@MARTES_1 [char](1),
+	@MIERCOLES_1 [char](1)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [ASISTENCIA_TRIPULANTES_PESCA] 
+	 ( [CODI_SEMA],
+	 [CODI_UNID_OPER],
+	 [CODI_PERS],
+	 [CODI_CARG],
+	 [JUEVES],
+	 [VIERNES],
+	 [SABADO],
+	 [DOMINGO],
+	 [LUNES],
+	 [MARTES],
+	 [MIERCOLES]) 
+ 
+VALUES 
+	( @CODI_SEMA_1,
+	 @CODI_UNID_OPER_1,
+	 @CODI_PERS_1,
+	 @CODI_CARG_1,
+	 @JUEVES_1,
+	 @VIERNES_1,
+	 @SABADO_1,
+	 @DOMINGO_1,
+	 @LUNES_1,
+	 @MARTES_1,
+	 @MIERCOLES_1)
+GO

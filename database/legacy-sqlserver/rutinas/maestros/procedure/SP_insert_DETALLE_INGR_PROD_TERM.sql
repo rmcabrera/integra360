@@ -1,0 +1,32 @@
+CREATE PROCEDURE [dbo].[SP_insert_DETALLE_INGR_PROD_TERM]
+	@CODI_DET_1 [char](3),
+	@CODI_INGR_PRO_TERM_1 [char](10),
+	@CODI_PROD_1 [char](8),
+	@CANT_INGR_1 [numeric](12, 3),
+	@MOTI_INGR_1 [varchar](100),
+	@FECH_INGR_1 [datetime],
+	@EMPA_PROD_1 [numeric](12, 3),
+	@Equi_empa_1 [numeric](12, 3)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [DETALLE_INGR_PROD_TERM] 
+	 ( [CODI_DET],
+	 [CODI_INGR_PRO_TERM],
+	 [CODI_PROD],
+	 [CANT_INGR],
+	 [MOTI_INGR],
+	 [FECH_INGR],
+	[EMPA_PROD],
+	[EQUI_EMPA]) 
+ 
+VALUES 
+	( @CODI_DET_1,
+	 @CODI_INGR_PRO_TERM_1,
+	 @CODI_PROD_1,
+	 @CANT_INGR_1,
+	 @MOTI_INGR_1,
+	 @FECH_INGR_1,
+	@EMPA_PROD_1,
+	@Equi_empa_1 	
+)
+GO

@@ -1,0 +1,26 @@
+CREATE PROCEDURE [dbo].[SP_update_ZARPE_COMBUSTIBLE]
+	@CODI_ZARP_1 [char](10),
+	@CODI_PETR_2 [char](3),
+	@SER_FACT_5 [char](5),
+	@NRO_FACT_6 [char](10),
+	@CANT_PETR_7 [numeric](12, 3),
+	@PREC_PETR_8 [numeric](12, 3),
+	@TIPO_DOC_9 [char](1),
+	@ESTADO_10 [char](1)
+WITH EXECUTE AS CALLER
+AS
+UPDATE [ZARPE_COMBUSTIBLE] 
+
+SET  [CODI_ZARP]	 = @CODI_ZARP_1,
+	 [CODI_PETR]	 = @CODI_PETR_2,
+	 [SER_FACT]	 = @SER_FACT_5,
+	 [NRO_FACT]	 = @NRO_FACT_6,
+	 [CANT_PETR]	 = @CANT_PETR_7,
+	 [PREC_PETR]	 = @PREC_PETR_8,
+	 [TIPO_DOC]	 = @TIPO_DOC_9,
+	 [ESTADO]	 = @ESTADO_10 
+
+WHERE 
+	( [CODI_ZARP]	 = @CODI_ZARP_1 AND
+	 [CODI_PETR]	 = @CODI_PETR_2)
+GO

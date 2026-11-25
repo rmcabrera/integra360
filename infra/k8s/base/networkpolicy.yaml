@@ -1,0 +1,173 @@
+# Politicas de red del namespace sige. Requiere un CNI que soporte NetworkPolicy
+# (Calico, Cilium, etc.). Las sondas del kubelet vienen del nodo y, segun el CNI,
+# pueden necesitar una excepcion aparte (ver README).
+#
+# Las etiquetas de los pods de plataforma las ponen los operadores:
+#   PostgreSQL (CloudNativePG): cnpg.io/cluster=sige-db-cluster
+#   Kafka (Strimzi):            strimzi.io/cluster=sige-kafka
+#   Keycloak (operator):        app=keycloak
+# Ajuste los nombres de namespace de los operadores (ingress-nginx, cnpg-system,
+# strimzi) a los de su instalacion.
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+---
+# El ingress-controller puede entrar a los microservicios y al frontend.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-to-apps
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  podSelector:
+    matchExpressions:
+      - key: sige.role
+        operator: In
+        values: ["service", "frontend"]
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+# El ingress-controller puede entrar a Keycloak (login / realms).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-to-keycloak
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  podSelector:
+    matchLabels:
+      app: keycloak
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+# PostgreSQL: lo alcanzan los microservicios (5432), las replicas entre si y el
+# operador CloudNativePG.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-to-postgres
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  podSelector:
+    matchLabels:
+      cnpg.io/cluster: sige-db-cluster
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              sige.role: service
+      ports:
+        - protocol: TCP
+          port: 5432
+    - from:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: sige-db-cluster
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: cnpg-system
+---
+# Kafka: lo alcanzan los microservicios (9092), los brokers/controladores entre
+# si y el operador Strimzi.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-to-kafka
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  podSelector:
+    matchLabels:
+      strimzi.io/cluster: sige-kafka
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              sige.role: service
+      ports:
+        - protocol: TCP
+          port: 9092
+    - from:
+        - podSelector:
+            matchLabels:
+              strimzi.io/cluster: sige-kafka
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: strimzi
+---
+# Keycloak: lo alcanzan los microservicios para validar tokens (OIDC, 8080).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-services-to-keycloak
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  podSelector:
+    matchLabels:
+      app: keycloak
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              sige.role: service
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+# ms-ventas puede llamar a ms-maestros (rest-client sincronico).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ventas-to-maestros
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: ms-maestros
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: ms-ventas
+      ports:
+        - protocol: TCP
+          port: 8080

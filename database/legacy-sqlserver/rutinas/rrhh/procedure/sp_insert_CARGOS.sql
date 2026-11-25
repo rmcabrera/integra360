@@ -1,0 +1,16 @@
+CREATE PROCEDURE [dbo].[sp_insert_CARGOS]
+	@CODI_CARG_1 [char](4),
+	@TIPO_CARG_2 [varchar](50),
+	@DESC_CARGO_3 [varchar](150)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [CARGOS] 
+	 ( [CODI_CARG],
+	 [TIPO_CARG],
+	 [DESC_CARGO]) 
+ 
+VALUES 
+	( @CODI_CARG_1,
+	 @TIPO_CARG_2,
+	 @DESC_CARGO_3)
+GO

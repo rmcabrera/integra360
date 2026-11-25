@@ -1,0 +1,25 @@
+CREATE PROCEDURE [dbo].[sp_insert_PAGO_PRES]
+	@CODI_PRES_1 [char](6),
+	@NRO_PAGO_2 [char](4),
+	@FECH_PAGO_3 [datetime],
+	@CODI_MONE_4 [char](2),
+	@MONTO_5 [decimal](9, 2),
+	@OBSERVACION_7 [varchar](150)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PAGOS_PRESTAMOS] 
+	 ( [CODI_PRES],
+	 [NRO_PAGO],
+	 [FECH_PAGO],
+	 [CODI_MONE],
+	 [MONTO],
+	 [OBSERVACION]) 
+ 
+VALUES 
+	( @CODI_PRES_1,
+	 @NRO_PAGO_2,
+	 @FECH_PAGO_3,
+	 @CODI_MONE_4,
+	 @MONTO_5,
+	 @OBSERVACION_7)
+GO

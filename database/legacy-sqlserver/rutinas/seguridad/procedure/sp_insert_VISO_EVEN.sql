@@ -1,0 +1,17 @@
+CREATE PROCEDURE [dbo].[sp_insert_VISO_EVEN]
+	@FECH_EVEN [datetime],
+	@CODI_PERS [char](5),
+	@DESC_EVEN [varchar](200)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [VISO_EVEN] 
+	 ( [FECH_EVEN],
+	 [CODI_PERS],
+	 [DESC_EVEN]) 
+ 
+VALUES 
+	( @FECH_EVEN,
+	 @CODI_PERS,
+	 @DESC_EVEN)
+COMMIT;
+GO

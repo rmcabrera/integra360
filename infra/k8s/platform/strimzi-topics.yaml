@@ -1,0 +1,168 @@
+# Topics Kafka (gestionados por el Topic Operator de Strimzi).
+# partitions 6, replicas 3; retencion 7d salvo las DLQ (30d).
+# dev: con 1 broker baje replicas a 1.
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.ventas.factura.v1
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.ventas.factura.v1.dlq.ms-logistica
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "2592000000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.ventas.factura.v1.dlq.ms-contabilidad
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "2592000000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.seguridad.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.maestros.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.logistica.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.ventas.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.contabilidad.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.finanzas.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.rrhh.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: sige.produccion.eventos
+  namespace: sige
+  labels:
+    strimzi.io/cluster: sige-kafka
+    app.kubernetes.io/part-of: sige
+spec:
+  partitions: 6
+  replicas: 3
+  config:
+    retention.ms: "604800000"
+    cleanup.policy: delete

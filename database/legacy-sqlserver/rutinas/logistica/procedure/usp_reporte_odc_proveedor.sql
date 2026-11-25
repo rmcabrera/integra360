@@ -1,0 +1,23 @@
+CREATE PROCEDURE [dbo].[usp_reporte_odc_proveedor]
+	@fec1 [datetime],
+	@fec2 [datetime]
+WITH EXECUTE AS CALLER
+AS
+--declare @fec1 datetime, @fec2 datetime
+--select @fec1='01/11/2010', @fec2='01/12/2010'
+
+set nocount on 
+select p.codi_orden_des, p.nro_orden_des, max(p.codi_orden_soli) codi_orden_soli,   
+         max(p.tipo) tipo, max(p.fecha) fecha,
+	dbo.f_cliente_proveedor(codi_clie_prov) proveedor,
+	(select isnull(desc_unid_oper,'') from dbo.unid_oper u(nolock) where u.codi_unid_oper=max(d.codi_tracto)) desc_tracto,  
+	(select isnull(desc_trans,'') from dbo.transportistas x(nolock)  where x.codi_trans=max(d.codi_trans)) desc_chofer,
+	(select isnull(desc_prod,'') from dbo.productos p(nolock) where p.codi_prod=max(d.codi_prod)) desc_prod, 
+	(select case when max(p.codi_mone)='01' then sum(importe) else 0 end) importe_s,
+	(select case when max(p.codi_mone)='02' then sum(importe) else 0 end) importe_d
+from dbo.ORDEN_DESPACHO_COMBUSTIBLE p(nolock)
+join dbo.ORDEN_DESPACHO_COMBUSTIBLE_DETA d(nolock)
+on p.codi_orden_des=d.codi_orden_des
+where cast(convert(char(10),getdate(),103) as smalldatetime) between @fec1 and @fec2 
+group by p.codi_clie_prov, p.codi_orden_des, p.nro_orden_des
+GO

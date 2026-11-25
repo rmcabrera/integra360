@@ -1,0 +1,22 @@
+CREATE PROCEDURE [dbo].[sp_insert_DETALLE_JORNADA]
+	@CODI_JORN_1 [char](10),
+	@CODI_TANQ_AUXI_1 [char](3),
+	@VALO_SALD_1 [numeric](12, 3),
+	@FECHA_1 [datetime],
+	@CODI_TURN_1 [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [DETALLE_JORNADA] 
+	 ( [CODI_JORN],
+	 [CODI_TANQ_AUXI],
+	 [VALO_SALD],
+	 [FECHA],
+	 [CODI_TURN]) 
+ 
+VALUES 
+	( @CODI_JORN_1,
+	 @CODI_TANQ_AUXI_1,
+	 @VALO_SALD_1,
+	 @FECHA_1,
+	 @CODI_TURN_1)
+GO

@@ -1,0 +1,8 @@
+{
+  "apiBaseUrl": "",
+  "auth": {
+    "enabled": false,
+    "authority": "http://localhost:8180/realms/sige",
+    "clientId": "sige-frontend"
+  }
+}

@@ -1,0 +1,31 @@
+CREATE PROCEDURE [dbo].[SP_insert_ORDE_TRABA_GRUA_DETA]
+	@CODI_ORDE_GRUA_1 [char](10),
+	@CODI_DETA_1 [char](3),
+	@NOMB_GRUA_1 [varchar](70),
+	@HORA_GRUA_1 [datetime],
+	@TRAB_REAL_1 [varchar](200),
+	@HORA_RETO_1 [datetime],
+	@HORA_TRAB_1 [numeric](12, 3),
+	@OBSE_ORDE_1 [varchar](200)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [ORDE_TRABA_GRUA_DETA] 
+	 ( [CODI_ORDE_GRUA],
+	 [CODI_DETA],
+	 [NOMB_GRUA],
+	 [HORA_GRUA],
+	 [TRAB_REAL],
+	 [HORA_RETO],
+	 [HORA_TRAB],
+	 [OBSE_ORDE]) 
+ 
+VALUES 
+	( @CODI_ORDE_GRUA_1,
+	 @CODI_DETA_1,
+	 @NOMB_GRUA_1,
+	 @HORA_GRUA_1,
+	 @TRAB_REAL_1,
+	 @HORA_RETO_1,
+	 @HORA_TRAB_1,
+	 @OBSE_ORDE_1)
+GO

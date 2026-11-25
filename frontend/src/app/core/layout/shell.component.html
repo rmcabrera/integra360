@@ -1,0 +1,98 @@
+<div class="shell" [class.sidebar-collapsed]="!sidebarOpen()">
+  <header class="topbar">
+    <button
+      type="button"
+      class="btn btn-ghost btn-icon"
+      (click)="toggleSidebar()"
+      [attr.aria-expanded]="sidebarOpen()"
+      aria-label="Mostrar u ocultar el menú"
+    >
+      ☰
+    </button>
+    <a routerLink="/inicio" class="brand">SIGE <span class="muted">Sistema Integrado</span></a>
+    <span class="spacer"></span>
+    <button
+      type="button"
+      class="btn btn-ghost btn-icon"
+      (click)="toggleTheme()"
+      [attr.aria-label]="theme() === 'light' ? 'Activar tema oscuro' : 'Activar tema claro'"
+    >
+      {{ theme() === 'light' ? '🌙' : '☀️' }}
+    </button>
+    <div class="user">
+      <span class="user-name">{{ auth.userName() || 'Usuario' }}</span>
+      @if (auth.enabled) {
+        <button type="button" class="btn btn-sm" (click)="logout()">Cerrar sesión</button>
+      }
+    </div>
+  </header>
+
+  <nav class="sidebar" aria-label="Menú principal">
+    <ul class="menu">
+      @for (node of menu; track trackNode($index, node)) {
+        <li class="menu-group">
+          @if (node.route) {
+            <a
+              [routerLink]="node.route"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="menu-link"
+              >{{ node.label }}</a
+            >
+          } @else {
+            <span class="menu-section">{{ node.label }}</span>
+          }
+          @if (node.children?.length) {
+            <ul class="submenu">
+              @for (child of node.children; track trackNode($index, child)) {
+                <li>
+                  @if (child.route) {
+                    <a
+                      [routerLink]="child.route"
+                      routerLinkActive="active"
+                      class="menu-link"
+                      >{{ child.label }}</a
+                    >
+                  } @else {
+                    <span class="menu-subsection">{{ child.label }}</span>
+                  }
+                  @if (child.children?.length) {
+                    <ul class="submenu">
+                      @for (grand of child.children; track trackNode($index, grand)) {
+                        <li>
+                          <a
+                            [routerLink]="grand.route"
+                            routerLinkActive="active"
+                            class="menu-link"
+                            >{{ grand.label }}</a
+                          >
+                        </li>
+                      }
+                    </ul>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <main class="content">
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <ol>
+        @for (crumb of crumbs(); track crumb.url; let last = $last) {
+          <li>
+            @if (last) {
+              <span aria-current="page">{{ crumb.label }}</span>
+            } @else {
+              <a [routerLink]="crumb.url">{{ crumb.label }}</a>
+            }
+          </li>
+        }
+      </ol>
+    </nav>
+    <router-outlet />
+  </main>
+</div>

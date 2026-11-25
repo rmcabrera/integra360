@@ -1,0 +1,31 @@
+CREATE PROCEDURE [dbo].[SP_insert_NOTA_CREDITO_DETA]
+	@CODI_NOTA_CRED_1 [char](10),
+	@CODI_DETA_1 [char](3),
+	@DESC_ITEM_1 [varchar](200),
+	@CODI_UNID_MEDI_1 [char](2),
+	@CANT_ITEM_1 [numeric](12, 3),
+	@PREC_ITEM_1 [numeric](12, 3),
+	@IMPO_ITEM_1 [numeric](12, 3),
+	@CODI_ITEM_1 [char](10)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [NOTA_CREDITO_DETA] 
+	 ( [CODI_NOTA_CRED],
+	 [CODI_DETA],
+	 [DESC_ITEM],
+	 [CODI_UNID_MEDI],
+	 [CANT_ITEM],
+	 [PREC_ITEM],
+	 [IMPO_ITEM],
+	 [CODI_ITEM]) 
+ 
+VALUES 
+	( @CODI_NOTA_CRED_1,
+	 @CODI_DETA_1,
+	 @DESC_ITEM_1,
+	 @CODI_UNID_MEDI_1,
+	 @CANT_ITEM_1,
+	 @PREC_ITEM_1,
+	 @IMPO_ITEM_1,
+	 @CODI_ITEM_1)
+GO

@@ -1,0 +1,125 @@
+# PostgreSQL gestionado por el operador CloudNativePG.
+# Operador: https://cloudnative-pg.io  (instalar antes, ver README).
+#
+# Expone servicios: sige-db-cluster-rw (primario, escritura), sige-db-cluster-ro
+# (replicas, lectura) y sige-db-cluster-r (cualquier instancia). La ConfigMap
+# sige-config apunta a sige-db-cluster-rw:5432/sige.
+#
+# postInitSQL (base 'postgres', superusuario) crea los roles globales; la BD y sus
+# esquemas se crean en 'sige'. Replica el principio de minimo privilegio de
+# infra/docker/postgres/init/01-roles-y-esquemas.sh: un rol+esquema por servicio
+# y un rol de solo lectura sige_reportes.
+#
+# IMPORTANTE sobre claves: aqui las contrasenas van como marcador 'CHANGE-ME'.
+# En produccion gestionelas con spec.managed.roles + passwordSecret (ejemplo
+# comentado mas abajo) y que coincidan con el Secret sige-db (DB_PASSWORD).
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: sige-db-cluster
+  namespace: sige
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+
+  storage:
+    size: 20Gi
+    # storageClass: gp3        # fije la storageClass de su proveedor
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "2"
+      memory: 2Gi
+
+  postgresql:
+    parameters:
+      max_connections: "200"
+      shared_buffers: 512MB
+
+  monitoring:
+    enablePodMonitor: true
+
+  bootstrap:
+    initdb:
+      database: sige
+      owner: sige_app
+      postInitSQL:
+        - CREATE ROLE sige_reportes LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_seguridad LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_maestros LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_logistica LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_ventas LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_contabilidad LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_finanzas LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_rrhh LOGIN PASSWORD 'CHANGE-ME';
+        - CREATE ROLE sige_produccion LOGIN PASSWORD 'CHANGE-ME';
+        - ALTER ROLE sige_seguridad SET search_path = seguridad;
+        - ALTER ROLE sige_maestros SET search_path = maestros;
+        - ALTER ROLE sige_logistica SET search_path = logistica;
+        - ALTER ROLE sige_ventas SET search_path = ventas;
+        - ALTER ROLE sige_contabilidad SET search_path = contabilidad;
+        - ALTER ROLE sige_finanzas SET search_path = finanzas;
+        - ALTER ROLE sige_rrhh SET search_path = rrhh;
+        - ALTER ROLE sige_produccion SET search_path = produccion;
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS pgcrypto;
+        - REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+        - CREATE SCHEMA seguridad AUTHORIZATION sige_seguridad;
+        - CREATE SCHEMA maestros AUTHORIZATION sige_maestros;
+        - CREATE SCHEMA logistica AUTHORIZATION sige_logistica;
+        - CREATE SCHEMA ventas AUTHORIZATION sige_ventas;
+        - CREATE SCHEMA contabilidad AUTHORIZATION sige_contabilidad;
+        - CREATE SCHEMA finanzas AUTHORIZATION sige_finanzas;
+        - CREATE SCHEMA rrhh AUTHORIZATION sige_rrhh;
+        - CREATE SCHEMA produccion AUTHORIZATION sige_produccion;
+        - GRANT USAGE ON SCHEMA seguridad, maestros, logistica, ventas, contabilidad, finanzas, rrhh, produccion TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_seguridad IN SCHEMA seguridad GRANT SELECT ON TABLES TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_maestros IN SCHEMA maestros GRANT SELECT ON TABLES TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_logistica IN SCHEMA logistica GRANT SELECT ON TABLES TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_ventas IN SCHEMA ventas GRANT SELECT ON TABLES TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_contabilidad IN SCHEMA contabilidad GRANT SELECT ON TABLES TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_finanzas IN SCHEMA finanzas GRANT SELECT ON TABLES TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_rrhh IN SCHEMA rrhh GRANT SELECT ON TABLES TO sige_reportes;
+        - ALTER DEFAULT PRIVILEGES FOR ROLE sige_produccion IN SCHEMA produccion GRANT SELECT ON TABLES TO sige_reportes;
+
+  # Copias de seguridad continuas a almacenamiento de objetos (PLANTILLA).
+  # Requiere un Secret con credenciales y, segun version de CNPG, el plugin
+  # Barman Cloud. Ajuste destino y credenciales.
+  backup:
+    retentionPolicy: "30d"
+    barmanObjectStore:
+      destinationPath: s3://CHANGE-ME-bucket/sige/backups
+      # endpointURL: https://s3.amazonaws.com
+      s3Credentials:
+        accessKeyId:
+          name: sige-backup-s3
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: sige-backup-s3
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: gzip
+      data:
+        compression: gzip
+
+# -----------------------------------------------------------------------------
+# Produccion (recomendado): gestione LOGIN+clave de los roles sin texto plano.
+# Cree los roles NOLOGIN en postInitSQL (quitando 'LOGIN PASSWORD ...') y declare:
+#
+#   managed:
+#     roles:
+#       - name: sige_ventas
+#         ensure: present
+#         login: true
+#         passwordSecret:
+#           name: sige-role-ventas      # Secret con claves username/password
+#       - name: sige_reportes
+#         login: true
+#         passwordSecret:
+#           name: sige-role-reportes
+# -----------------------------------------------------------------------------

@@ -1,0 +1,105 @@
+<div class="page">
+  <div class="row" style="justify-content: space-between">
+    <h1>Registro de Facturación</h1>
+    <a class="btn btn-primary" routerLink="/ventas/facturas/nueva">Nueva factura</a>
+  </div>
+
+  <form class="card mb-2" (ngSubmit)="buscar()">
+    <div class="card-body">
+      <div class="filters">
+        <div class="field">
+          <label for="desde">Desde</label>
+          <input id="desde" type="date" [ngModel]="filters().desde || ''" name="desde"
+                 (ngModelChange)="setFilter('desde', $event)" />
+        </div>
+        <div class="field">
+          <label for="hasta">Hasta</label>
+          <input id="hasta" type="date" [ngModel]="filters().hasta || ''" name="hasta"
+                 (ngModelChange)="setFilter('hasta', $event)" />
+        </div>
+        <div class="field">
+          <label for="cliente">Cliente</label>
+          <input id="cliente" type="text" [ngModel]="filters().cliente || ''" name="cliente"
+                 (ngModelChange)="setFilter('cliente', $event)" />
+        </div>
+        <div class="field">
+          <label for="almacen">Almacén</label>
+          <input id="almacen" type="text" [ngModel]="filters().almacen || ''" name="almacen"
+                 (ngModelChange)="setFilter('almacen', $event)" />
+        </div>
+        <div class="field">
+          <label for="serie">Serie</label>
+          <input id="serie" type="text" [ngModel]="filters().serie || ''" name="serie"
+                 (ngModelChange)="setFilter('serie', $event)" />
+        </div>
+        <div class="field">
+          <label for="estado">Estado</label>
+          <select id="estado" [ngModel]="filters().estado || ''" name="estado"
+                  (ngModelChange)="setFilter('estado', $event)">
+            <option value="">Todos</option>
+            <option value="E">Emitida</option>
+            <option value="A">Anulada</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <button type="button" class="btn" (click)="limpiar()">Limpiar</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="table-wrap">
+    <table class="data">
+      <thead>
+        <tr>
+          <th>Serie</th>
+          <th>Número</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Moneda</th>
+          <th class="num">Valor</th>
+          <th class="num">IGV</th>
+          <th class="num">Total</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (f of rows(); track f.codiFact) {
+          <tr>
+            <td>{{ f.serFact }}</td>
+            <td>{{ f.nroFact }}</td>
+            <td>{{ f.fechFact }}</td>
+            <td>{{ f.codiClieProv }}</td>
+            <td>{{ f.codiMone }}</td>
+            <td class="num">{{ f.valoFact }}</td>
+            <td class="num">{{ f.igvFact }}</td>
+            <td class="num">{{ f.totaFact }}</td>
+            <td>
+              @if (f.estado === 'A') {
+                <span class="badge badge-danger">Anulada</span>
+              } @else {
+                <span class="badge badge-success">Emitida</span>
+              }
+            </td>
+            <td><a class="btn btn-sm" [routerLink]="['/ventas/facturas', f.codiFact]">Ver</a></td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="10" class="text-center muted">
+              {{ loading() ? 'Cargando…' : 'Sin facturas' }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row mt-1" style="align-items: center">
+    <button type="button" class="btn btn-sm" (click)="nextPage(-1)" [disabled]="pageIndex() === 0">‹ Anterior</button>
+    <span>Página {{ pageIndex() + 1 }} · {{ total() }} registro(s)</span>
+    <button type="button" class="btn btn-sm" (click)="nextPage(1)"
+            [disabled]="(pageIndex() + 1) * pageSize() >= total()">Siguiente ›</button>
+  </div>
+</div>

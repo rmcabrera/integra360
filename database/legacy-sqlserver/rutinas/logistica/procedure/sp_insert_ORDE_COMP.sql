@@ -1,0 +1,52 @@
+CREATE PROCEDURE [dbo].[sp_insert_ORDE_COMP]
+	@CODI_ORDE_COMP [char](10),
+	@CODI_CLIE_PROV [char](5),
+	@FECHA [datetime],
+	@ESTADO [char](1),
+	@CODI_MONE [char](2),
+	@IMPORTE [decimal](18, 4),
+	@CODI_UNID_OPER_SOLI [char](5),
+	@CODI_UNID_OPER_DEST [char](5),
+	@COND_PAGO [char](10),
+	@FECH_ENTR [datetime],
+	@LUGA_ENTR [varchar](100),
+	@CODI_UNID_MEDI [char](2),
+	@TIEM_PLAZ_CRED [decimal](18, 4),
+	@ATENCION [varchar](100),
+	@NRO_COTI [varchar](20)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [ORDEN_DE_COMPRA] 
+	 ( [CODI_ORDE_COMP],
+	 [CODI_CLIE_PROV],
+	 [FECHA],
+	 [ESTADO],
+	 [CODI_MONE],
+	 [IMPORTE],
+	 [CODI_UNID_OPER_SOLI],
+	 [CODI_UNID_OPER_DEST],
+	 [COND_PAGO],
+	 [FECH_ENTR],
+	 [LUGA_ENTR],
+	 [CODI_UNID_MEDI],
+	 [TIEM_PLAZ_CRED],
+	 [ATENCION],
+ 	 [NRO_COTI]) 
+ 
+VALUES 
+	( @CODI_ORDE_COMP,
+	 @CODI_CLIE_PROV,
+	 @FECHA,
+	 @ESTADO,
+	 @CODI_MONE,
+	 @IMPORTE,
+	 @CODI_UNID_OPER_SOLI,
+	 @CODI_UNID_OPER_DEST,
+	 @COND_PAGO,
+	 @FECH_ENTR,
+	 @LUGA_ENTR,
+	 @CODI_UNID_MEDI,
+	 @TIEM_PLAZ_CRED,
+	 @ATENCION,
+	 @NRO_COTI)
+GO

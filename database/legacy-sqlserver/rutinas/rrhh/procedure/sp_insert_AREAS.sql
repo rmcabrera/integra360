@@ -1,0 +1,16 @@
+CREATE PROCEDURE [dbo].[sp_insert_AREAS]
+	@CODI_AREA_1 [char](2),
+	@NOMB_AREA_2 [varchar](50),
+	@UBICA_3 [varchar](50)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [AREAS] 
+	 ( [CODI_AREA],
+	 [NOMB_AREA],
+	 [UBICA]) 
+ 
+VALUES 
+	( @CODI_AREA_1,
+	 @NOMB_AREA_2,
+	 @UBICA_3)
+GO

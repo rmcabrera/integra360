@@ -1,0 +1,92 @@
+<div class="page">
+  <a routerLink="/ventas/facturas" class="muted">‹ Volver a facturación</a>
+
+  @if (loading()) {
+    <p class="muted mt-1">Cargando factura…</p>
+  } @else if (data(); as d) {
+    <div class="row mt-1" style="justify-content: space-between; align-items: flex-start">
+      <h1>Factura {{ d.cabecera.serFact }}-{{ d.cabecera.nroFact }}</h1>
+      <div class="row">
+        @if (d.cabecera.estado === 'A') {
+          <span class="badge badge-danger">Anulada</span>
+        } @else {
+          <span class="badge badge-success">Emitida</span>
+          @if (canWrite) {
+            <button type="button" class="btn btn-danger" (click)="openAnular()">Anular</button>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-body meta-grid">
+        <div><span class="muted">Código</span><div>{{ d.cabecera.codiFact }}</div></div>
+        <div><span class="muted">Fecha</span><div>{{ d.cabecera.fechFact }}</div></div>
+        <div><span class="muted">Cliente</span><div>{{ d.cabecera.codiClieProv }}</div></div>
+        <div><span class="muted">Moneda</span><div>{{ d.cabecera.codiMone }}</div></div>
+        <div><span class="muted">Valor</span><div>{{ d.cabecera.valoFact }}</div></div>
+        <div><span class="muted">IGV</span><div>{{ d.cabecera.igvFact }}</div></div>
+        <div><span class="muted">Total</span><div><strong>{{ d.cabecera.totaFact }}</strong></div></div>
+      </div>
+    </div>
+
+    <h2>Detalle</h2>
+    <div class="table-wrap">
+      <table class="data">
+        <thead>
+          <tr>
+            <th>Ítem</th>
+            <th>Producto</th>
+            <th>Descripción</th>
+            <th>U.M.</th>
+            <th class="num">Cantidad</th>
+            <th class="num">Precio</th>
+            <th class="num">Importe</th>
+            <th class="num">IGV</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of d.detalle; track item.codiDeta) {
+            <tr>
+              <td>{{ item.codiDeta }}</td>
+              <td>{{ item.codiProd }}</td>
+              <td>{{ item.descItem }}</td>
+              <td>{{ item.codiUnidMedi }}</td>
+              <td class="num">{{ item.cantItem }}</td>
+              <td class="num">{{ item.precItem }}</td>
+              <td class="num">{{ item.impoItem }}</td>
+              <td class="num">{{ item.igv }}</td>
+            </tr>
+          } @empty {
+            <tr><td colspan="8" class="text-center muted">Sin ítems</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="muted mt-1">No se encontró la factura.</p>
+  }
+
+  @if (showAnular()) {
+    <div class="overlay" (click)="cerrarAnular()">
+      <div class="dialog" role="dialog" aria-modal="true" aria-label="Anular factura"
+           (click)="$event.stopPropagation()">
+        <div class="dialog-header"><h3>Anular factura</h3></div>
+        <div class="dialog-body">
+          <div class="field">
+            <label for="motivo">Motivo <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="motivo" rows="3" [ngModel]="motivo()" (ngModelChange)="motivo.set($event)"
+                      required></textarea>
+            <span class="hint">El motivo es obligatorio y queda registrado.</span>
+          </div>
+        </div>
+        <div class="dialog-footer">
+          <button type="button" class="btn" (click)="cerrarAnular()" [disabled]="anulando()">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="confirmarAnular()" [disabled]="anulando()">
+            {{ anulando() ? 'Anulando…' : 'Anular factura' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

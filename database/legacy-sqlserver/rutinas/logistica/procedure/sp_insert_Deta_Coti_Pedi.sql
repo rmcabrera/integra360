@@ -1,0 +1,31 @@
+CREATE PROCEDURE [dbo].[sp_insert_Deta_Coti_Pedi]
+	@CODI_DETA_COTI [char](12),
+	@CODI_COTI [char](10),
+	@CODI_PROD [char](8),
+	@CANTIDAD [decimal](9, 2),
+	@CODI_UNID_MEDI_TIEM [char](2),
+	@TIEM_RESP [decimal](9, 2),
+	@CODI_MONE [char](2),
+	@PREC_UNIT [decimal](9, 2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [DETALLE_COTIZACION_PEDIDO] 
+	 ( [CODI_DETA_COTI],
+	 [CODI_COTI],
+	 [CODI_PROD],
+	 [CANTIDAD],
+	 [CODI_UNID_MEDI_TIEM],
+	 [TIEM_RESP],
+	 [CODI_MONE],
+	 [PREC_UNIT]) 
+ 
+VALUES 
+	( @CODI_DETA_COTI,
+	 @CODI_COTI,
+	 @CODI_PROD,
+	 @CANTIDAD,
+	 @CODI_UNID_MEDI_TIEM,
+	 @TIEM_RESP,
+	 @CODI_MONE,
+	 @PREC_UNIT)
+GO

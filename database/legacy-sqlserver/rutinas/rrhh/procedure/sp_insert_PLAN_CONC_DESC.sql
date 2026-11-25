@@ -1,0 +1,31 @@
+CREATE PROCEDURE [dbo].[sp_insert_PLAN_CONC_DESC]
+	@CODI_PRIN [char](10),
+	@CODI_PLAN_CONC [char](10),
+	@CODI_CONC [char](6),
+	@CODI_DESC [char](10),
+	@NRO_PAGO [int],
+	@CODI_TIPO_TRAB [char](2),
+	@INDI_TIPO_DESC [char](2),
+	@VALOR [decimal](9, 2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PLAN_CONC_DESC] 
+	 ( [CODI_PRIN],
+	 [CODI_PLAN_CONC],
+	 [CODI_CONC],
+	 [CODI_DESC],
+	 [NRO_PAGO],	
+	 [CODI_TIPO_TRAB],
+	 [INDI_TIPO_DESC],
+	 [VALOR]) 
+ 
+VALUES 
+	(@CODI_PRIN,
+	 @CODI_PLAN_CONC,
+	 @CODI_CONC,
+	 @CODI_DESC,
+	 @NRO_PAGO,
+	 @CODI_TIPO_TRAB,
+	 @INDI_TIPO_DESC,
+	 @VALOR)
+GO

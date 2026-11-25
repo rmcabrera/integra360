@@ -1,0 +1,40 @@
+CREATE PROCEDURE [dbo].[sp_insert_HORA_PLAN_VACA_GRAT]
+	@CODI_PERS_1 [char](5),
+	@FECH_INIC_2 [datetime],
+	@CODI_TIPO_PLAN_3 [char](2),
+	@FECH_TERM_4 [datetime],
+	@ANIO_5 [char](4),
+	@MES_6 [char](2),
+	@PROM_REMU_HORA_25_7 [decimal](9, 2),
+	@PROM_REMU_HORA_35_8 [decimal](9, 2),
+	@REMU_OTRO_INGR_9 [decimal](9, 2),
+	@NRO_MESE_PAGA_10 [smallint],
+	@NRO_DIAS_PAGA_11 [smallint]
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [HORA_PLAN_VACA_GRAT] 
+	 ( [CODI_PERS],
+	 [FECH_INIC],
+	 [CODI_TIPO_PLAN],
+	 [FECH_TERM],
+	 [ANIO],
+	 [MES],
+	 [PROM_REMU_HORA_25],
+	 [PROM_REMU_HORA_35],
+	 [REMU_OTRO_INGR],
+	 [NRO_MESE_PAGA],
+	 [NRO_DIAS_PAGA]) 
+ 
+VALUES 
+	( @CODI_PERS_1,
+	 @FECH_INIC_2,
+	 @CODI_TIPO_PLAN_3,
+	 @FECH_TERM_4,
+	 @ANIO_5,
+	 @MES_6,
+	 @PROM_REMU_HORA_25_7,
+	 @PROM_REMU_HORA_35_8,
+	 @REMU_OTRO_INGR_9,
+	 @NRO_MESE_PAGA_10,
+	 @NRO_DIAS_PAGA_11)
+GO

@@ -1,0 +1,98 @@
+# Enruta /api/<servicio> -> ms-<servicio>, /realms y /resources -> Keycloak,
+# y el resto -> frontend (Angular). Equivalente al gateway Traefik de docker.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sige
+  labels:
+    app.kubernetes.io/part-of: sige
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "25m"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - sige.example.com
+      secretName: sige-tls
+  rules:
+    - host: sige.example.com
+      http:
+        paths:
+          - path: /api/seguridad
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-seguridad
+                port:
+                  number: 8080
+          - path: /api/maestros
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-maestros
+                port:
+                  number: 8080
+          - path: /api/logistica
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-logistica
+                port:
+                  number: 8080
+          - path: /api/ventas
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-ventas
+                port:
+                  number: 8080
+          - path: /api/contabilidad
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-contabilidad
+                port:
+                  number: 8080
+          - path: /api/finanzas
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-finanzas
+                port:
+                  number: 8080
+          - path: /api/rrhh
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-rrhh
+                port:
+                  number: 8080
+          - path: /api/produccion
+            pathType: Prefix
+            backend:
+              service:
+                name: ms-produccion
+                port:
+                  number: 8080
+          - path: /realms
+            pathType: Prefix
+            backend:
+              service:
+                name: sige-keycloak-service
+                port:
+                  number: 8080
+          - path: /resources
+            pathType: Prefix
+            backend:
+              service:
+                name: sige-keycloak-service
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 8080

@@ -1,0 +1,52 @@
+CREATE PROCEDURE [dbo].[sp_insert_INGRESO_PETROLEO]
+	@CODI_INGR_1 [char](10),
+	@CODI_CLIE_PROV_1 [char](5),
+	@CODI_TIPO_DOCU_1 [char](4),
+	@NRO_SERI_1 [char](5),
+	@NRO_DOCU_1 [char](15),
+	@FECH_INGR_1 [datetime],
+	@CODI_MONE_1 [char](2),
+	@PREC_PETR_1 [numeric](12, 3),
+	@CANT_PETR_1 [numeric](12, 3),
+	@CODI_UNID_MEDI_1 [char](2),
+	@CODI_TANQ_1 [char](2),
+	@CODI_TURN_1 [char](2),
+	@STOC_TANQ_1 [numeric](12, 3),
+	@NUEV_STOC_TANQ_1 [numeric](12, 3),
+	@OBSE_PETRO_1 [varchar](100)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [INGRESO_PETROLEO] 
+	 ( [CODI_INGR],
+	 [CODI_CLIE_PROV],
+	 [CODI_TIPO_DOCU],
+	 [NRO_SERI],
+	 [NRO_DOCU],
+	 [FECH_INGR],
+	 [CODI_MONE],
+	 [PREC_PETR],
+	 [CANT_PETR],
+	 [CODI_UNID_MEDI],
+	 [CODI_TANQ],
+	 [CODI_TURN],
+	 [STOC_TANQ],
+	 [NUEV_STOC_TANQ],
+	 [OBSE_PETRO]) 
+ 
+VALUES 
+	( @CODI_INGR_1,
+	 @CODI_CLIE_PROV_1,
+	 @CODI_TIPO_DOCU_1,
+	 @NRO_SERI_1,
+	 @NRO_DOCU_1,
+	 @FECH_INGR_1,
+	 @CODI_MONE_1,
+	 @PREC_PETR_1,
+	 @CANT_PETR_1,
+	 @CODI_UNID_MEDI_1,
+	 @CODI_TANQ_1,
+	 @CODI_TURN_1,
+	 @STOC_TANQ_1,
+	 @NUEV_STOC_TANQ_1,
+	 @OBSE_PETRO_1)
+GO

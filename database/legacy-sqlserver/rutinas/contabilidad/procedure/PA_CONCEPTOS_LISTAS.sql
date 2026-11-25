@@ -1,0 +1,14 @@
+CREATE PROCEDURE [dbo].[PA_CONCEPTOS_LISTAS]
+WITH EXECUTE AS CALLER
+AS
+BEGIN
+ 
+   SELECT CONCEPTOS.CODI_CONC,   
+         CONCEPTOS.DESC_CONC,   
+         SUB_CONCEPTO_SUNAT.Codi_Sub_Concep,   
+         SUB_CONCEPTO_SUNAT.Desc_Sub_Concep_Sunat  
+   FROM conceptos LEFT join  SUB_CONCEPTO_SUNAT   on
+			CONCEPTOS.Codi_Sub_Concep_Sunat = SUB_CONCEPTO_SUNAT.Codi_Sub_Concep 
+
+END
+GO

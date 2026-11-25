@@ -1,0 +1,69 @@
+# Keycloak gestionado por el operador oficial (k8s.keycloak.org/v2alpha1).
+# Operador: https://www.keycloak.org/operator/installation  (instalar antes).
+#
+# El operador crea el Service interno 'sige-keycloak-service' (puerto 8080), que
+# es el que usan los microservicios en OIDC_URL (sige-config) y el Ingress para
+# /realms y /resources.
+#
+# Base de datos: Keycloak necesita SU PROPIA base ('keycloak'), distinta de 'sige'.
+# Creela en el Cluster CloudNativePG (p.ej. un segundo Database CR de CNPG o
+# manualmente) junto con su rol, y guarde las credenciales en el Secret
+# 'sige-keycloak-db' (claves username/password).
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: sige-keycloak
+  namespace: sige
+  labels:
+    app.kubernetes.io/part-of: sige
+    app: keycloak
+spec:
+  instances: 2
+  db:
+    vendor: postgres
+    host: sige-db-cluster-rw
+    port: 5432
+    database: keycloak
+    usernameSecret:
+      name: sige-keycloak-db
+      key: username
+    passwordSecret:
+      name: sige-keycloak-db
+      key: password
+  hostname:
+    hostname: https://sige.example.com
+  http:
+    tlsSecret: sige-tls
+  # Usamos el Ingress unico de base/ (ingress-nginx), no el del operador.
+  ingress:
+    enabled: false
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "1"
+      memory: 1500Mi
+---
+# Importacion del realm. El operador exige el realm INLINE (no lee archivos ni
+# ConfigMaps). Pegue aqui el contenido de
+# infra/docker/keycloak/sige-realm.json convertido a YAML (JSON es YAML valido),
+# reemplazando ${SIGE_FRONTEND_URL} y ${SIGE_ADMIN_PASSWORD} por valores reales
+# o quitando el usuario admin para crearlo aparte. Alternativa sin operador:
+# arrancar la imagen con --import-realm montando el JSON como en docker-compose.
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: KeycloakRealmImport
+metadata:
+  name: sige-realm
+  namespace: sige
+  labels:
+    app.kubernetes.io/part-of: sige
+spec:
+  keycloakCRName: sige-keycloak
+  realm:
+    realm: sige
+    enabled: true
+    displayName: "SIGE - Sistema Integrado"
+    sslRequired: external
+    # ... resto del realm (clients sige-frontend / sige-backend, roles, etc.)
+    # tomado de infra/docker/keycloak/sige-realm.json

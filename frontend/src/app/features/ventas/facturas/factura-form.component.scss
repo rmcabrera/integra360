@@ -1,0 +1,68 @@
+.header-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0 1rem;
+}
+.header-grid .field {
+  margin-bottom: 0.6rem;
+}
+.req {
+  color: var(--c-danger);
+}
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-right: 1rem;
+}
+
+.typeahead {
+  position: relative;
+  max-width: 480px;
+}
+.results {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-2);
+  max-height: 260px;
+  overflow-y: auto;
+}
+.results li button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  color: var(--c-text);
+  font: inherit;
+}
+.results li button:hover {
+  background: var(--c-surface-2);
+}
+
+table.data input {
+  min-width: 80px;
+  padding: 0.25rem 0.4rem;
+}
+
+.totals-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.totals-grid > div {
+  min-width: 140px;
+}
+.totals-grid strong {
+  font-size: 1.15rem;
+}

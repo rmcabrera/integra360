@@ -1,0 +1,236 @@
+CREATE PROCEDURE [dbo].[sp_carg_Hora_Trab_diar]
+	@codi_pers [char](5),
+	@dia [smallint],
+	@mes [smallint],
+	@anio [smallint],
+	@TIPO_PERS [char](1),
+	@FECH [datetime] OUTPUT,
+	@h01 [smallint] OUTPUT
+WITH EXECUTE AS CALLER
+AS
+DECLARE @CADE_FECH CHAR(20)
+DECLARE @FECHA DATETIME
+DECLARE @FECH_AUXI DATETIME
+DECLARE @FECH_INIC_VACA DATETIME
+DECLARE @FECH_FINA_VACA DATETIME
+DECLARE @HE1 DATETIME
+DECLARE @HS1 DATETIME
+DECLARE @HE2 DATETIME
+DECLARE @HS2 DATETIME
+DECLARE @TOTA_HORA decimal(9,2)
+DECLARE @TOTA_HORA1 decimal(9,2)
+DECLARE @TOTA_HORA2 decimal(9,2)
+DECLARE @TOTA_HORA11 decimal(9,2)
+DECLARE @TOTA_HORA21 decimal(9,2)
+declare @dia_sema char(3)
+declare @codi_carg char(4)
+declare @cont_carg as int
+declare @cont_vaca smallint
+
+Create Table #hora_Temp (FECHA DATETIME, H01 SMALLINT)
+--SMALLINT,H02 SMALLINT,H03 SMALLINT,H04 SMALLINT,H05 SMALLINT,H06 SMALLINT
+--,H07 SMALLINT,H08 SMALLINT,H09 SMALLINT,H10 SMALLINT,H11 SMALLINT,H12 SMALLINT,H13 SMALLINT,H14 SMALLINT,H15 SMALLINT
+--,H16 SMALLINT,H17 SMALLINT,H18 SMALLINT,H19 SMALLINT,H20 SMALLINT,H21 SMALLINT,H22 SMALLINT,H23 SMALLINT,H24 SMALLINT
+--,H25 SMALLINT,H26 SMALLINT,H27 SMALLINT,H28 SMALLINT,H29 SMALLINT,H30 SMALLINT,H31 SMALLINT)
+
+Select @codi_carg = codi_carg from personal where codi_pers = @codi_pers;
+Declare Curs_CARG_HORA_TRAB Cursor for 
+Select ISNULL(HE1,'01/01/1999'), ISNULL(HS1,'01/01/1999'),ISNULL(HE2,'01/01/1999'), ISNULL(HS2,'01/01/1999'), CAST( FECHA AS DATETIME )
+From ASISTENCIA_PERSONAL
+WHERE CODI_PERS = @CODI_PERS AND DATEPART(MONTH, CAST(FECHA AS DATETIME) ) = @MES AND DATEPART(YEAR, CAST( FECHA AS DATETIME) ) = @ANIO
+	and DATEPART(day, CAST(FECHA AS DATETIME) ) = @dia
+ORDER BY CAST( FECHA AS DATETIME );
+Open Curs_CARG_HORA_TRAB;
+Fetch Next From Curs_CARG_HORA_TRAB into @HE1, @HS1, @HE2, @HS2, @FECHA
+WHILE @@FETCH_STATUS = 0
+	Begin 
+		Select @cont_vaca = count(codi_pers) from vacaciones
+		where codi_pers = @codi_pers and fech_inic <= @FECHA and fech_term >= @fecha;
+		if @cont_vaca = 0
+		begin
+			IF UPPER(@TIPO_PERS) = 'E' 
+			BEGIN
+				SET @FECH_AUXI =  DATEADD(HH,8, CAST(@FECHA AS DATETIME))
+			END
+			ELSE
+			BEGIN
+				SET @FECH_AUXI =  DATEADD(HH,7, CAST(@FECHA AS DATETIME))
+			END	
+			SET @TOTA_HORA1 = 0 
+			SET @TOTA_HORA2 = 0 
+			SET @TOTA_HORA11 = 0 
+			SET @TOTA_HORA21 = 0	
+			IF DATEPART(YEAR,@HE1) = 1999  
+			BEGIN
+				IF DATEPART(YEAR,@HS1) = 1999  			
+				BEGIN
+					SET @TOTA_HORA1 = 0
+					IF DATEPART(YEAR,@HE2) = 1999  
+					BEGIN
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA1 = 0
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA1 = 0
+							SET @TOTA_HORA2 = 0
+						END
+					END
+					ELSE
+					BEGIN
+						SET @TOTA_HORA1 = 0
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA1 = 0
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA2 = DATEDIFF(mi,@HE2,@HS2)
+						END
+					END				
+				END
+				ELSE
+				BEGIN
+					SET @TOTA_HORA1 = 0
+					IF DATEPART(YEAR,@HE2) = 1999  
+					BEGIN
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA2 = 0 --DATEDIFF(mi,@HE1,@HS2)
+						END
+					END
+					ELSE
+					BEGIN
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA2 = DATEDIFF(mi,@HE2,@HS2)
+						END
+					END
+				END
+			END		
+			ELSE
+			BEGIN
+				IF DATEPART(YEAR,@HS1) = 1999  			
+				BEGIN
+					IF DATEPART(YEAR,@HE2) = 1999  
+					BEGIN
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA1 = 0
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA1 = DATEDIFF(mi,@HE1,@HS2)
+							IF @TOTA_HORA1  > 480 
+							BEGIN
+								SET @TOTA_HORA1 = @TOTA_HORA1 - 60
+							END
+							SET @TOTA_HORA2 = 0
+						END
+					END
+					ELSE
+					BEGIN
+						SET @TOTA_HORA1 = 0
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA1 = 0
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA2 = DATEDIFF(mi,@HE2,@HS2)
+						END
+					END				
+				END
+				ELSE
+				BEGIN
+					SET @TOTA_HORA1 = DATEDIFF(mi,@HE1,@HS1)
+					IF @TOTA_HORA1  > 480 
+					BEGIN
+						SET @TOTA_HORA1 = @TOTA_HORA1 - 60
+					END								
+					IF DATEPART(YEAR,@HE2) = 1999  
+					BEGIN
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA2 = 0 --DATEDIFF(mi,@HE1,@HS2)
+						END
+					END
+					ELSE
+					BEGIN
+						IF DATEPART(YEAR,@HS2) = 1999  					
+						BEGIN
+							SET @TOTA_HORA2 = 0
+						END
+						ELSE
+						BEGIN
+							SET @TOTA_HORA2 = DATEDIFF(mi,@HE2,@HS2)
+						END
+					END
+				END	
+			END
+		end
+		else
+		begin
+			SET @TOTA_HORA1 = 0
+			SET @TOTA_HORA2 = 0
+		end
+		SET @TOTA_HORA11 = round( @TOTA_HORA1/ 60 , 0 )
+		SET @TOTA_HORA21 = round( @TOTA_HORA2/ 60 , 0 )
+
+		IF ( @FECHA >= @FECH_INIC_VACA ) AND ( @FECHA <= @FECH_fina_VACA)
+		BEGIN
+			SET @TOTA_HORA = 0
+		END
+		ELSE
+		BEGIN
+			SET @TOTA_HORA = @TOTA_HORA11 + @TOTA_HORA21
+			--SET @TOTA_HORA = 8
+		END
+		Select @cont_carg = count( codi_carg ) fROM personal where codi_pers = @codi_pers 
+		and codi_carg in ( select codi_carg from cargos where upper( desc_cargo ) like '%ALMACÉN%' or upper( desc_cargo ) like '%ALMACEN%' )
+--		print @cont_carg
+--		print @TOTA_HORA 
+		if @TIPO_PERS = 'E' 
+		begin
+			if @TOTA_HORA > 8 
+			begin
+				if @cont_carg = 0 
+				begin
+					SET @TOTA_HORA = 8
+				end				
+			end				
+		end
+--		print @TOTA_HORA1
+--		print @TOTA_HORA2
+		Select @dia_sema = SUBSTRING( max  (  upper( datename( weekday , @FECHA ) ) )  , 1, 3 )  from empresa
+		if ( @dia_sema = 'SÁB' OR @dia_sema = 'SAB' OR @dia_sema = 'SAT'  )  AND @TOTA_HORA = 5
+		BEGIN
+			SET @TOTA_HORA = 8	
+		END
+		INSERT INTO #HORA_TEMP(FECHA, H01) VALUES (@FECHA, @TOTA_HORA)
+				
+		Fetch Next From Curs_CARG_HORA_TRAB into @HE1, @HS1, @HE2, @HS2, @FECHA
+	End
+Close Curs_CARG_HORA_TRAB;
+Deallocate Curs_CARG_HORA_TRAB;
+
+SELECT *
+FROM #HORA_TEMP
+GO

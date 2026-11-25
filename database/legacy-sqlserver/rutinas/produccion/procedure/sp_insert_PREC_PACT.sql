@@ -1,0 +1,22 @@
+CREATE PROCEDURE [dbo].[sp_insert_PREC_PACT]
+	@CODI_SEMA [char](8),
+	@CODI_CLIE_PROV [char](5),
+	@CODI_ESPE [char](2),
+	@PREC_PACT [decimal](12, 3),
+	@CODI_MONE [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PRECIO_PACTADO] 
+	 ( [CODI_SEMA],
+	 [CODI_CLIE_PROV],
+	 [CODI_ESPE],
+	 [PREC_PACT],
+	 [CODI_MONE]) 
+ 
+VALUES 
+	( @CODI_SEMA,
+	 @CODI_CLIE_PROV,
+	 @CODI_ESPE,
+	 @PREC_PACT,
+	 @CODI_MONE)
+GO

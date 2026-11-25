@@ -1,0 +1,27 @@
+# Configuracion comun (no secreta) que leen todos los microservicios.
+# Los valores apuntan a los servicios internos del cluster creados por los
+# operadores (CloudNativePG, Strimzi, Keycloak) en infra/k8s/platform/.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sige-config
+  labels:
+    app.kubernetes.io/part-of: sige
+data:
+  PORT: "8080"
+  # CloudNativePG expone el primario en <cluster>-rw
+  DB_REACTIVE_URL: postgresql://sige-db-cluster-rw:5432/sige
+  DB_JDBC_URL: jdbc:postgresql://sige-db-cluster-rw:5432/sige
+  DB_POOL_SIZE: "20"
+  # Strimzi expone el bootstrap en <cluster>-kafka-bootstrap
+  KAFKA_BOOTSTRAP: sige-kafka-kafka-bootstrap:9092
+  # Keycloak operator expone el servicio interno en <keycloak>-service
+  OIDC_URL: http://sige-keycloak-service:8080/realms/sige
+  # Origen permitido por CORS: el host publico del Ingress
+  CORS_ORIGINS: https://sige.example.com
+  OTEL_ENABLED: "false"
+  OTEL_ENDPOINT: http://otel-collector:4317
+  LOG_JSON: "true"
+  OUTBOX_INTERVAL: 2s
+  # La BD ya trae V1..V5 aplicadas tras la migracion; no baseline por defecto
+  FLYWAY_BASELINE: "false"

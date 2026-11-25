@@ -1,0 +1,28 @@
+CREATE PROCEDURE [dbo].[sp_insert_PLAN_CONC_INCR]
+	@CODI_PRIN [char](10),
+	@CODI_PLAN_CONC [char](10),
+	@CODI_CONC [char](6),
+	@CODI_PERS [char](5),
+	@NRO_INCRE [int],
+	@CODI_TIPO_PERS [char](2),
+	@VALOR [decimal](18, 0)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PLAN_CONC_INCR] 
+	 ( [CODI_PRIN],
+	 [CODI_PLAN_CONC],
+	 [CODI_CONC],
+	 [CODI_PERS],
+	 [NRO_INCRE],
+	 [CODI_TIPO_PERS],
+	 [VALOR]) 
+ 
+VALUES 
+	(@CODI_PRIN,
+	 @CODI_PLAN_CONC,
+	 @CODI_CONC,
+	 @CODI_PERS,
+	 @NRO_INCRE,
+	 @CODI_TIPO_PERS,
+	 @VALOR)
+GO

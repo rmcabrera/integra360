@@ -1,0 +1,28 @@
+CREATE PROCEDURE [dbo].[SP_insert_BOLETAS_DETALLE]
+	@CODI_BOLE_1 [char](10),
+	@CODI_DETA_2 [char](3),
+	@CODI_ITEM_3 [varchar](10),
+	@DESCRIPCION_4 [varchar](200),
+	@CANT_ITEM_5 [numeric](12, 2),
+	@PRECIO_6 [numeric](12, 2),
+	@TOTAL_7 [numeric](12, 2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [BOLETAS_DETALLE] 
+	 ( [CODI_BOLE],
+	 [CODI_DETA],
+	 [CODI_ITEM],
+	 [DESCRIPCION],
+	 [CANT_ITEM],
+	 [PRECIO],
+	 [TOTAL]) 
+ 
+VALUES 
+	( @CODI_BOLE_1,
+	 @CODI_DETA_2,
+	 @CODI_ITEM_3,
+	 @DESCRIPCION_4,
+	 @CANT_ITEM_5,
+	 @PRECIO_6,
+	 @TOTAL_7)
+GO

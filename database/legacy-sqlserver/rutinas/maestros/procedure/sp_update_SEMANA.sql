@@ -1,0 +1,21 @@
+CREATE PROCEDURE [dbo].[sp_update_SEMANA]
+	@CODI_SEMA [char](8),
+	@NRO_SEMA [smallint],
+	@FECH_INIC [datetime],
+	@FECH_TERM [datetime],
+	@ANIOMES [char](6),
+	@CODI_TIPO_PERS [char](2)
+WITH EXECUTE AS CALLER
+AS
+UPDATE [SEMANA] 
+
+SET  [CODI_SEMA]	 = @CODI_SEMA,
+	 [NRO_SEMA]	 = @NRO_SEMA,
+	 [FECH_INIC]	 = @FECH_INIC,
+	 [FECH_TERM]	 = @FECH_TERM,
+	 [ANIOMES]	 = @ANIOMES,
+	 [CODI_TIPO_PERS]	 = @CODI_TIPO_PERS 
+
+WHERE 
+	( [CODI_SEMA]	 = @CODI_SEMA)
+GO

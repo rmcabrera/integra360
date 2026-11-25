@@ -1,0 +1,22 @@
+CREATE PROCEDURE [dbo].[sp_insert_UNIDAD_MEDIDA]
+	@CODI_UNID_MEDI [char](2),
+	@DESC_UNID_MEDI [varchar](100),
+	@TIPO_UNID_MEDI [varchar](50),
+	@SIMB_UNID_MEDI [char](2),
+	@codi_sunat [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [UNIDAD_MEDIDA] 
+	 ( [CODI_UNID_MEDI],
+	 [DESC_UNID_MEDI],
+	 [TIPO_UNID_MEDI],
+	 [SIMB_UNID_MEDI],
+	  codi_sunat) 
+ 
+VALUES 
+	( @CODI_UNID_MEDI,
+	 @DESC_UNID_MEDI,
+	 @TIPO_UNID_MEDI,
+	 @SIMB_UNID_MEDI,
+	@codi_sunat)
+GO

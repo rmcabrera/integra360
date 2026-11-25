@@ -1,0 +1,34 @@
+CREATE PROCEDURE [dbo].[sp_insert_DETALLE_SALI_PROD_TERM]
+	@CODI_DETA_1 [char](3),
+	@CODI_SALI_PROD_TERM_1 [char](10),
+	@CODI_PROD_1 [char](8),
+	@CANT_SALI_1 [numeric](12, 3),
+	@PREC_SALI_1 [numeric](12, 3),
+	@TOTA_VENT_1 [numeric](12, 3),
+	@FECH_SALI_1 [datetime],
+	@EMPA_PROD_1 [numeric](12, 3),
+	@EQUI_EMPA_1 [numeric](12, 3)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [DETALLE_SALI_PROD_TERM] 
+	 ( [CODI_DETA],
+	 [CODI_SALI_PROD_TERM],
+	 [CODI_PROD],
+	 [CANT_SALI],
+	 [PREC_SALI],
+	 [TOTA_VENT],
+	 [FECH_SALI],
+	[EMPA_PROD],
+	[EQUI_EMPA]) 
+ 
+VALUES 
+	( @CODI_DETA_1,
+	 @CODI_SALI_PROD_TERM_1,
+	 @CODI_PROD_1,
+	 @CANT_SALI_1,
+	 @PREC_SALI_1,
+	 @TOTA_VENT_1,
+	 @FECH_SALI_1,
+	@EMPA_PROD_1,
+	@EQUI_EMPA_1)
+GO

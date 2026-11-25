@@ -1,0 +1,22 @@
+CREATE PROCEDURE [dbo].[sp_insert_Unid_Oper]
+	@CODI_UNID_OPER [char](5),
+	@DESC_UNID_OPER [varchar](100),
+	@CODI_PERS [char](5),
+	@UBICACION [varchar](100),
+	@CODI_LCC [char](5)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [UNID_OPER] 
+	 ( [CODI_UNID_OPER],
+	 [DESC_UNID_OPER],
+	 [CODI_PERS],
+	 [UBICACION],
+	 [CODI_LCC]) 
+ 
+VALUES 
+	( @CODI_UNID_OPER,
+	 @DESC_UNID_OPER,
+	 @CODI_PERS,
+	 @UBICACION,
+	 @CODI_LCC)
+GO

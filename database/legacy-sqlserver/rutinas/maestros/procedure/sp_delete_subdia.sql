@@ -1,0 +1,9 @@
+CREATE PROCEDURE [dbo].[sp_delete_subdia]
+	@CODI_SUBD [char](2)
+WITH EXECUTE AS CALLER
+AS
+DELETE [SI_ROSA].[dbo].[SUBDIARIO] 
+
+WHERE 
+	( [CODI_SUBD]	 = @CODI_SUBD)
+GO

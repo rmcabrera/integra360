@@ -1,0 +1,55 @@
+CREATE PROCEDURE [dbo].[sp_insert_BANCOS_SALDOS]
+	@NRO_CUEN_1 [char](7),
+	@ANIO_2 [char](2),
+	@CODI_MONE_3 [char](2),
+	@SALD_00_4 [decimal](9, 2),
+	@SALD_01_5 [decimal](9, 2),
+	@SALD_02_6 [decimal](9, 2),
+	@SALD_03_7 [decimal](9, 2),
+	@SALD_04_8 [decimal](9, 2),
+	@SALD_05_9 [decimal](9, 2),
+	@SALD_06_10 [decimal](9, 2),
+	@SALD_07_11 [decimal](9, 2),
+	@SALD_08_12 [decimal](9, 2),
+	@SALD_09_13 [decimal](9, 2),
+	@SALD_10_14 [decimal](9, 2),
+	@SALD_11_15 [decimal](9, 2),
+	@SALD_12_16 [decimal](9, 2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [BANCOS_SALDOS] 
+	 ( [NRO_CUEN],
+	 [ANIO],
+	 [CODI_MONE],
+	 [SALD_00],
+	 [SALD_01],
+	 [SALD_02],
+	 [SALD_03],
+	 [SALD_04],
+	 [SALD_05],
+	 [SALD_06],
+	 [SALD_07],
+	 [SALD_08],
+	 [SALD_09],
+	 [SALD_10],
+	 [SALD_11],
+	 [SALD_12]) 
+ 
+VALUES 
+	( @NRO_CUEN_1,
+	 @ANIO_2,
+	 @CODI_MONE_3,
+	 @SALD_00_4,
+	 @SALD_01_5,
+	 @SALD_02_6,
+	 @SALD_03_7,
+	 @SALD_04_8,
+	 @SALD_05_9,
+	 @SALD_06_10,
+	 @SALD_07_11,
+	 @SALD_08_12,
+	 @SALD_09_13,
+	 @SALD_10_14,
+	 @SALD_11_15,
+	 @SALD_12_16)
+GO

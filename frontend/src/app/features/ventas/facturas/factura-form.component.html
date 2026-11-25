@@ -1,0 +1,181 @@
+<div class="page">
+  <a routerLink="/ventas/facturas" class="muted">‹ Volver a facturación</a>
+  <h1 class="mt-1">Nueva factura</h1>
+
+  <section class="card mb-2">
+    <div class="card-body">
+      <h2>Cabecera</h2>
+      <div class="header-grid">
+        <div class="field">
+          <label for="alma">Almacén <span class="req">*</span></label>
+          <input id="alma" type="text" [ngModel]="header().codiAlma"
+                 (ngModelChange)="setHeader('codiAlma', $event)" />
+        </div>
+        <div class="field">
+          <label for="tipoDocu">Tipo documento <span class="req">*</span></label>
+          <input id="tipoDocu" type="text" [ngModel]="header().codiTipoDocu"
+                 (ngModelChange)="setHeader('codiTipoDocu', $event)" />
+        </div>
+        <div class="field">
+          <label for="serie">Serie <span class="req">*</span></label>
+          <input id="serie" type="text" [ngModel]="header().serie"
+                 (ngModelChange)="setHeader('serie', $event)" />
+        </div>
+        <div class="field">
+          <label for="cliente">Cliente <span class="req">*</span></label>
+          <input id="cliente" type="text" [ngModel]="header().codiClieProv"
+                 (ngModelChange)="setHeader('codiClieProv', $event)" />
+        </div>
+        <div class="field">
+          <label for="fecha">Fecha <span class="req">*</span></label>
+          <input id="fecha" type="date" [ngModel]="header().fecha"
+                 (ngModelChange)="setHeader('fecha', $event)" />
+        </div>
+        <div class="field">
+          <label for="venc">Vencimiento</label>
+          <input id="venc" type="date" [ngModel]="header().vencimiento"
+                 (ngModelChange)="setHeader('vencimiento', $event)" />
+        </div>
+        <div class="field">
+          <label for="mone">Moneda <span class="req">*</span></label>
+          <input id="mone" type="text" [ngModel]="header().codiMone"
+                 (ngModelChange)="setHeader('codiMone', $event)" />
+        </div>
+        <div class="field">
+          <label for="tc">Tipo de cambio</label>
+          <input id="tc" type="number" step="any" [ngModel]="header().tipoCambio"
+                 (ngModelChange)="setHeader('tipoCambio', $event)" />
+        </div>
+        <div class="field">
+          <label for="pago">Tipo de pago</label>
+          <input id="pago" type="text" [ngModel]="header().codiTipoPago"
+                 (ngModelChange)="setHeader('codiTipoPago', $event)" />
+        </div>
+        <div class="field">
+          <label for="oc">Orden de compra</label>
+          <input id="oc" type="text" [ngModel]="header().ordenCompra"
+                 (ngModelChange)="setHeader('ordenCompra', $event)" />
+        </div>
+        <div class="field">
+          <label for="vend">Vendedor</label>
+          <input id="vend" type="text" [ngModel]="header().vendedor"
+                 (ngModelChange)="setHeader('vendedor', $event)" />
+        </div>
+      </div>
+      <div class="row">
+        <label class="check">
+          <input type="checkbox" [ngModel]="header().aplicaIgv"
+                 (ngModelChange)="setHeader('aplicaIgv', $event)" />
+          Aplica IGV ({{ igvPercent }}%)
+        </label>
+        <label class="check">
+          <input type="checkbox" [ngModel]="header().preciosIncluyenIgv"
+                 (ngModelChange)="setHeader('preciosIncluyenIgv', $event)" />
+          Precios incluyen IGV
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card mb-2">
+    <div class="card-body">
+      <h2>Ítems</h2>
+      <div class="typeahead">
+        <label for="prod" class="visually-hidden">Buscar producto</label>
+        <input id="prod" type="search" placeholder="Buscar producto por descripción o código…"
+               autocomplete="off" [ngModel]="productQuery()"
+               (ngModelChange)="onQueryChange($event)" />
+        @if (searching()) {
+          <span class="muted">Buscando…</span>
+        }
+        @if (productResults().length) {
+          <ul class="results" role="listbox">
+            @for (p of productResults(); track p.codiProd) {
+              <li>
+                <button type="button" (click)="addProduct(p)">
+                  <strong>{{ p.codiProd }}</strong> — {{ p.descProd }}
+                  <span class="muted">(stock {{ p.stock }}, prom {{ p.precProm }})</span>
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <div class="table-wrap mt-1">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Descripción</th>
+              <th>U.M.</th>
+              <th class="num">Cantidad</th>
+              <th class="num">P. unitario</th>
+              <th class="num">Descuento</th>
+              <th>Oferta</th>
+              <th class="num">Importe</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (it of items(); track $index) {
+              <tr>
+                <td>{{ it.codiProd }}</td>
+                <td>
+                  <input type="text" [ngModel]="it.descripcion"
+                         (ngModelChange)="updateItem($index, 'descripcion', $event)" />
+                </td>
+                <td>{{ it.codiUnidMedi }}</td>
+                <td class="num">
+                  <input type="number" step="any" min="0" [ngModel]="it.cantidad"
+                         (ngModelChange)="updateItem($index, 'cantidad', +$event)" />
+                </td>
+                <td class="num">
+                  <input type="number" step="any" min="0" [ngModel]="it.precioUnitario"
+                         (ngModelChange)="updateItem($index, 'precioUnitario', +$event)" />
+                </td>
+                <td class="num">
+                  <input type="number" step="any" min="0" [ngModel]="it.descuento"
+                         (ngModelChange)="updateItem($index, 'descuento', +$event)" />
+                </td>
+                <td>
+                  <input type="checkbox" [ngModel]="it.oferta"
+                         (ngModelChange)="updateItem($index, 'oferta', $event)"
+                         [attr.aria-label]="'Oferta ' + it.codiProd" />
+                </td>
+                <td class="num">{{ lineAmount(it) | currency: 'PEN' : 'symbol' : '1.2-2' : 'es-PE' }}</td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-danger" (click)="removeItem($index)"
+                          aria-label="Quitar ítem">✕</button>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="9" class="text-center muted">Agregue productos usando el buscador</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="card mb-2 totals">
+    <div class="card-body">
+      <div class="totals-grid">
+        <div><span class="muted">Valor de venta</span>
+          <div>{{ totals().valor | currency: 'PEN' : 'symbol' : '1.2-2' : 'es-PE' }}</div></div>
+        <div><span class="muted">IGV</span>
+          <div>{{ totals().igv | currency: 'PEN' : 'symbol' : '1.2-2' : 'es-PE' }}</div></div>
+        <div><span class="muted">Total</span>
+          <div><strong>{{ totals().total | currency: 'PEN' : 'symbol' : '1.2-2' : 'es-PE' }}</strong></div></div>
+      </div>
+      <p class="hint muted">Totales referenciales calculados en el cliente. El servidor es la fuente de verdad.</p>
+    </div>
+  </section>
+
+  <div class="row" style="justify-content: flex-end">
+    <a class="btn" routerLink="/ventas/facturas">Cancelar</a>
+    <button type="button" class="btn btn-primary" (click)="guardar()" [disabled]="saving()">
+      {{ saving() ? 'Guardando…' : 'Emitir factura' }}
+    </button>
+  </div>
+</div>

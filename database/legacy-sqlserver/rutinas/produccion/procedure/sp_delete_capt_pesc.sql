@@ -1,0 +1,9 @@
+CREATE PROCEDURE [dbo].[sp_delete_capt_pesc]
+	@CODI_ZARP_1 [char](10)
+WITH EXECUTE AS CALLER
+AS
+DELETE [ZARPES] 
+
+WHERE 
+	( [CODI_ZARP]	 = @CODI_ZARP_1)
+GO

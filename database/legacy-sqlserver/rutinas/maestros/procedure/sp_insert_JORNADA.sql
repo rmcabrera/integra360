@@ -1,0 +1,52 @@
+CREATE PROCEDURE [dbo].[sp_insert_JORNADA]
+	@CODI_JORN_1 [char](10),
+	@CODI_TURN_1 [char](2),
+	@HORA_INIC_1 [datetime],
+	@HORA_TOTA_1 [numeric](12, 3),
+	@HORA_COCC_1 [numeric](12, 3),
+	@HORA_PROC_1 [numeric](12, 3),
+	@HORA_SIN_PROD_1 [numeric](12, 3),
+	@HORA_VAPO_1 [numeric](12, 3),
+	@HORA_GAS_CALI_1 [numeric](12, 3),
+	@TOTA_ACEI_PROD_1 [numeric](12, 3),
+	@TOTA_ACEI_RECU_1 [numeric](12, 3),
+	@OBSE_JORN_1 [varchar](100),
+	@ID_JEFE_TURN_1 [char](5),
+	@NOMB_JEFE_TURN_1 [varchar](100),
+	@FECH_JORN_1 [datetime]
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [JORNADA] 
+	 ( [CODI_JORN],
+	 [CODI_TURN],
+	 [HORA_INIC],
+	 [HORA_TOTA],
+	 [HORA_COCC],
+	 [HORA_PROC],
+	 [HORA_SIN_PROD],
+	 [HORA_VAPO],
+	 [HORA_GAS_CALI],
+	 [TOTA_ACEI_PROD],
+	 [TOTA_ACEI_RECU],
+	 [OBSE_JORN],
+	 [ID_JEFE_TURN],
+	 [NOMB_JEFE_TURN],
+	 [FECH_JORN]) 
+ 
+VALUES 
+	( @CODI_JORN_1,
+	 @CODI_TURN_1,
+	 @HORA_INIC_1,
+	 @HORA_TOTA_1,
+	 @HORA_COCC_1,
+	 @HORA_PROC_1,
+	 @HORA_SIN_PROD_1,
+	 @HORA_VAPO_1,
+	 @HORA_GAS_CALI_1,
+	 @TOTA_ACEI_PROD_1,
+	 @TOTA_ACEI_RECU_1,
+	 @OBSE_JORN_1,
+	 @ID_JEFE_TURN_1,
+	 @NOMB_JEFE_TURN_1,
+	 @FECH_JORN_1)
+GO

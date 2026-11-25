@@ -1,0 +1,70 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: sige
+
+resources:
+  - ../../base
+
+# ServiceMonitor del Prometheus Operator (opcional): requiere su CRD instalado.
+components:
+  - ../../components/servicemonitor
+
+commonAnnotations:
+  sige.io/environment: prod
+
+# Reemplace OWNER por su organizacion en ghcr.io y fije el tag de release.
+images:
+  - name: ghcr.io/OWNER/sige-ms-seguridad
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-ms-maestros
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-ms-logistica
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-ms-ventas
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-ms-contabilidad
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-ms-finanzas
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-ms-rrhh
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-ms-produccion
+    newTag: v1.0.0
+  - name: ghcr.io/OWNER/sige-frontend
+    newTag: v1.0.0
+
+patches:
+  # prod: recursos mayores para todos los microservicios
+  - target:
+      kind: Deployment
+      labelSelector: app.kubernetes.io/component=microservice
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: all
+      spec:
+        replicas: 3
+        template:
+          spec:
+            containers:
+              - name: app
+                resources:
+                  requests:
+                    cpu: 500m
+                    memory: 768Mi
+                  limits:
+                    cpu: "2"
+                    memory: 1536Mi
+  # prod: HPA 3..8
+  - target:
+      kind: HorizontalPodAutoscaler
+    patch: |-
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      metadata:
+        name: all
+      spec:
+        minReplicas: 3
+        maxReplicas: 8

@@ -1,0 +1,199 @@
+@if (meta(); as m) {
+  <section class="grid">
+    <header class="grid-head">
+      <div>
+        <h2>{{ m.label || m.name }}</h2>
+        <p class="muted">{{ m.legacyName }} · {{ total() }} registro(s)</p>
+      </div>
+      <div class="row">
+        <label class="search">
+          <span class="visually-hidden">Buscar</span>
+          <input
+            type="search"
+            placeholder="Buscar…"
+            [ngModel]="q()"
+            (ngModelChange)="q.set($event)"
+            (keyup.enter)="search()"
+          />
+        </label>
+        <button type="button" class="btn" (click)="search()">Buscar</button>
+        <button type="button" class="btn" (click)="clearFilters()">Limpiar</button>
+        <button type="button" class="btn" (click)="exportCsv()" [disabled]="!rows().length">
+          Exportar CSV
+        </button>
+        @if (canWrite()) {
+          <button type="button" class="btn btn-primary" (click)="openCreate()">Nuevo</button>
+        }
+      </div>
+    </header>
+
+    <div class="table-wrap">
+      <table class="data">
+        <thead>
+          <tr>
+            @for (col of columns(); track col.field) {
+              <th
+                [class.num]="isNum(col)"
+                (click)="sortBy(col)"
+                [attr.aria-sort]="
+                  sortField() === col.field ? (sortDir() === 'asc' ? 'ascending' : 'descending') : 'none'
+                "
+                role="button"
+                tabindex="0"
+                (keyup.enter)="sortBy(col)"
+              >
+                {{ col.label || col.field }}
+                @if (sortField() === col.field) {
+                  <span aria-hidden="true">{{ sortDir() === 'asc' ? '▲' : '▼' }}</span>
+                }
+              </th>
+            }
+            @if (canWrite()) {
+              <th class="actions-col">Acciones</th>
+            }
+          </tr>
+          <tr class="filter-row">
+            @for (col of columns(); track col.field) {
+              <th>
+                <input
+                  type="text"
+                  [attr.aria-label]="'Filtrar ' + (col.label || col.field)"
+                  [ngModel]="filters()[col.field] || ''"
+                  (ngModelChange)="setFilter(col.field, $event)"
+                  (keyup.enter)="applyFilters()"
+                  placeholder="filtro…"
+                />
+              </th>
+            }
+            @if (canWrite()) {
+              <th></th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of rows(); track rowKey($index)) {
+            <tr>
+              @for (col of columns(); track col.field) {
+                <td [class.num]="isNum(col)">{{ row[col.field] | fieldValue: col }}</td>
+              }
+              @if (canWrite()) {
+                <td class="actions-col">
+                  <button type="button" class="btn btn-sm" (click)="openEdit(row)">Editar</button>
+                  <button type="button" class="btn btn-sm btn-danger" (click)="askDelete(row)">
+                    Eliminar
+                  </button>
+                </td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td [attr.colspan]="columns().length + (canWrite() ? 1 : 0)" class="text-center muted">
+                @if (loading()) {
+                  Cargando…
+                } @else {
+                  Sin registros
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="pager">
+      <label>
+        Filas por página
+        <select
+          [ngModel]="pageSize()"
+          (ngModelChange)="changePageSize($event)"
+        >
+          @for (s of pageSizes; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+      </label>
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-sm" (click)="goTo(0)" [disabled]="pageIndex() === 0">
+        «
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm"
+        (click)="goTo(pageIndex() - 1)"
+        [disabled]="pageIndex() === 0"
+      >
+        ‹
+      </button>
+      <span>Página {{ pageIndex() + 1 }} de {{ totalPages() }}</span>
+      <button
+        type="button"
+        class="btn btn-sm"
+        (click)="goTo(pageIndex() + 1)"
+        [disabled]="pageIndex() + 1 >= totalPages()"
+      >
+        ›
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm"
+        (click)="goTo(totalPages() - 1)"
+        [disabled]="pageIndex() + 1 >= totalPages()"
+      >
+        »
+      </button>
+    </footer>
+  </section>
+
+  @if (dialogMode(); as mode) {
+    <div class="overlay" (click)="closeDialog()">
+      <div
+        class="dialog"
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-label]="mode === 'create' ? 'Nuevo registro' : 'Editar registro'"
+        (click)="$event.stopPropagation()"
+      >
+        <div class="dialog-header">
+          <h3>{{ mode === 'create' ? 'Nuevo' : 'Editar' }} — {{ m.label || m.name }}</h3>
+        </div>
+        <app-entity-form
+          [meta]="m"
+          [mode]="mode"
+          [record]="editing()"
+          [saving]="saving()"
+          (save)="onSave($event)"
+          (cancel)="closeDialog()"
+        />
+      </div>
+    </div>
+  }
+
+  @if (deleting(); as row) {
+    <div class="overlay" (click)="cancelDelete()">
+      <div
+        class="dialog"
+        role="alertdialog"
+        aria-modal="true"
+        aria-label="Confirmar eliminación"
+        (click)="$event.stopPropagation()"
+      >
+        <div class="dialog-header"><h3>Eliminar registro</h3></div>
+        <div class="dialog-body">
+          <p>¿Confirma eliminar este registro? Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="dialog-footer">
+          <button type="button" class="btn" (click)="cancelDelete()">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  }
+} @else {
+  <div class="page">
+    @if (loading()) {
+      <p class="muted">Cargando metadatos…</p>
+    } @else {
+      <p class="muted">No se pudieron cargar los metadatos de la entidad.</p>
+    }
+  </div>
+}

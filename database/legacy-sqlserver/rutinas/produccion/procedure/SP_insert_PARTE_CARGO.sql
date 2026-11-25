@@ -1,0 +1,28 @@
+CREATE PROCEDURE [dbo].[SP_insert_PARTE_CARGO]
+	@CODI_CARG_1 [char](4),
+	@FECH_ASIG_1 [datetime],
+	@CODI_UNID_OPER_1 [char](5),
+	@PARTE_1 [decimal](12, 3),
+	@ADICIONAL_1 [decimal](12, 3),
+	@EPARTE_1 [decimal](12, 3),
+	@EADICIONAL_1 [decimal](12, 3)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PARTE_CARGO] 
+	 ( [CODI_CARG],
+	 [FECH_ASIG],
+	 [CODI_UNID_OPER],
+	 [PARTE],
+	 [ADICIONAL],
+	 [ESPE_PART],
+	 [ESPE_ADIC]) 
+ 
+VALUES 
+	( @CODI_CARG_1,
+	 @FECH_ASIG_1,
+	 @CODI_UNID_OPER_1,
+	 @PARTE_1,
+	 @ADICIONAL_1,
+	 @EPARTE_1,
+	 @EADICIONAL_1)
+GO

@@ -1,0 +1,25 @@
+CREATE PROCEDURE [dbo].[sp_insert_PAGOS_JUICIOS]
+	@CODI_JUIC_1 [char](6),
+	@NRO_PAGO_2 [char](4),
+	@FECH_PAGO_3 [datetime],
+	@CODI_MONE_4 [char](2),
+	@MONTO_5 [decimal](9, 2),
+	@OBSERVACION_6 [varchar](150)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PAGOS_JUICIOS] 
+	 ( [CODI_JUIC],
+	 [NRO_PAGO],
+	 [FECH_PAGO],
+	 [CODI_MONE],
+	 [MONTO],
+	 [OBSERVACION]) 
+ 
+VALUES 
+	( @CODI_JUIC_1,
+	 @NRO_PAGO_2,
+	 @FECH_PAGO_3,
+	 @CODI_MONE_4,
+	 @MONTO_5,
+	 @OBSERVACION_6)
+GO

@@ -1,0 +1,556 @@
+Arial
+Archivos
+Cambio de Empresa
+Cambio de Contraseña
+Advertencia
+Cierre todas las ventanas relacionadas a almacenes para generar nuevos registros.
+Cambio de Almacén
+Nuevo
+Nuevo Registro
+Modificar
+Modifica un Registro
+Modificar Registro
+Eliminar
+Elimina un registro
+Eliminar Registro
+Cancelar
+Cancelar la modificación
+Buscar
+Vista Previa
+Copiar
+Guardar
+Guardar Cambios
+Imprimir
+Mensaje
+Indicar el DataWindow a Exportar
+Exportar Excel
+Visor de Eventos
+Cerrar Ventana
+Salir
+&Maestros
+Archivos Maestros
+Maestros &Externos
+&Monedas
+Tipo de Cambio
+&Tipo de Cambio
+Clientes/Proveedores
+Clientes y Proveedores
+Entidades Financieras
+Registro de Valores Unitarios
+Registro de &Sistema de Pensiones
+&Semana de Planilla
+Registro de Domicilios
+Registro de Transportistas
+Registro de Rutas
+Registro Tipo Carga
+Registro de Telefonos
+Registro Control de Créditos
+Registro Control de Pagos
+Registro Tipo Rotación
+Registro Marca de Activos
+Sindicatos
+&Feriados
+U&nidades de Medida
+Cultivos
+Zonas
+Etapas Fenológicas
+Medios de Pago
+Documentos de Identidad
+Existencias
+Intangibles
+Libros - Registros
+Aduana
+Tipos de Operación
+Contador Tipo Documento
+Maestros &Internos
+Configuración de Menús
+Acceso a Exportar
+Datos de la Empresa
+&Almacenes
+Cuotas Sucursal
+Lugar de Origen
+Notas
+Catálogo de Personal
+Registro de Personal
+Cuentas de Ahorro del Personal
+Datos de Personal de Seguridad 
+&Usuarios
+Registro de Usuarios
+Mantenimiento Detracciones
+Ca&rgos
+Areas de Traba&jo
+Areas Grupo
+Sub Areas Grupo
+&Unidades Operativas
+Registro de &Conceptos
+Conceptos Con&tables en cuentas
+Conceptos afectos por planilla
+Plan Contable
+Registro de Cuentas
+Registro de &Productos (8 dígitos)
+Registro de Productos
+&Sub Familias de Productos  (4 dígitos)
+&Familia de Productos  (2 dígitos)
+&Linea Familia de Productos
+&Productos Baja
+Principio Activo
+Comisión por Productos
+Productos Matriz de BCG
+Rotación de Línea de Productos
+Control de Problemas
+Su&bdiarios
+Tipos de &Documento
+Glosas
+Registro de Pólizas
+Tipo &Costo
+Tipo Costo &General
+&Proyectos
+Parametros
+Configuración Gerencial
+Configuración de Balances
+Catálogo Cuentas Provisión
+Cuentas de Activos
+Tipo de Conceptos Caja Chica
+Configuración de Conceptos Caja Chica
+Configuración de Cuentas Libro Diario Simp
+Cuentas de Contablización
+Coeficientes Liquidación de Impuestos
+Configuración EEFF
+Tipos de Créditos
+Línea de Créditos
+Asignar Clientes a Vendedor
+Cierre de Mes
+Cierre de Mes x Usuario
+Planillas Electrónicas
+Tipo de Actividad
+Establecimiento
+Zona - Via
+Ubigeo
+Tipo de Trabajador
+Nivel - Ocupación
+Regimen Pensionario
+Tipo de Contrato
+Periodo Remunerativo
+Entidad Prest. Salud
+Situación del Trabajador
+Tipo de Pago
+Motivo Fin Período
+Modalidad Formativa
+Vínculo Familiar
+Motivo Baja Derecho Habientes
+Tipo Suspensión Relación Laboral
+&Personal
+SubSistema de Personal
+Demandas
+Juzgados
+Jueces
+Especialistas
+Abogados
+Juicios
+Contratos
+Mantenimiento de &Contratos
+Mantenimiento de Contratos
+Impresión de Fotocheks
+Impresión de fotocheks terceros
+Reportes de Contratos
+Contratos y Renovación
+Vencimientos de Contratos
+Asistencia
+&Registro de Asistencia O/E
+Registrar Asistencia
+Reporte de Asistencia &Semanal
+Reporte de Asistencia Semanal
+Reporte de Asistencia &diaria
+Reporte de Asistencia diaria
+&Importar Asistencia de Reloj
+Edición de Asistencia
+Autorizaciones de Trabajo
+Registro de Vacaciones O/E
+Registro de Licencias/Subsidios/Permisos O/E
+Control de Vacaciones O/E
+Dias Trabajados
+&Lista de Asistencia Semanal
+Asistencia del Personal
+&Cuentas Corrientes
+&Juicios
+&Registro de Juicios
+Registro de Juicios
+&Pago de Juicios
+&Préstamos
+Solicitud de Préstamos
+&Registro de Préstamos
+Registro de Préstamos
+&Pago de Prestamos
+Comedor
+Asistencia Comedor
+&Comisiones
+&Planillas
+Otros Ingresos Quinta Categoría
+Planilla Obreros y Empleados
+Generar Planilla de &Remuneraciones
+Generar Planilla de Remuneraciones
+&Detalle de Planilla
+Detalle Planilla Remuneraciones
+Generar Planilla Semanal
+Generar Planilla de &Vacaciones
+Generar Planilla de Vacaciones
+Generar Planilla de &Gratificaciones
+Generar Planilla de Gratificaciones
+Generar Planilla de &CTS
+Generar Planillas de CTS
+CTS Trunco
+Pro&visión de Planillas
+Provisión para Empleados/Obreros
+Provisión Planillas Empleados/Obreros
+Reportes
+Empleados y Obreros
+Remuneraciones
+Impresión de Boletas
+Impresión de Planillas
+&Resumen de Planillas
+&Netos a Pagar
+Netos a Pagar
+Modelo Planilla
+Resumen Conceptos &Empleados/Obreros
+Resumen Conceptos Empleados/Obreros
+Resumen General de Conceptos
+&Resumen General de Planillas
+Reporte Informativo CTS
+Cts
+Resumen CTS
+Deposito CTS
+Listas
+Relación &General de Trabajadores
+Tipo Trabajador
+&Pago de Trabajadores
+Costos de Personal por &Área
+Relación Estructura Remuneraciones
+Lista de &Horas Trabajadas
+Horas Extras y Ordinarias
+Lista Horas Extras Laboradas y Pagadas
+Relación Apertura de Cuentas
+Relación por tipo de Riesgo
+Préstamos y Pagos
+Reporte de grupo General
+Asistencia Mensual
+Relación de Personal por Edades
+Record Vacacional
+Reporte Derecho habientes Personal
+Relación Vida Ley y SCTR
+Relación de Cumpleaños
+Relación de Trabajadores del Mes
+Reporte de remuneraciones por tipo de planilla
+Reportes a Otras Instituciones
+PD&T Remuneraciones
+Carta Aportaciones O/E
+Anexos Carta de Aportaciones
+Detalle Remuneraciones
+AFP Pago de Aportes Previsionales
+Relación Trabajadores SCTR Salud
+Ficha Personal
+Reporte AFPNet
+Certificado Quinta Categoría
+Liquidación Utilidades
+Juicios con la empresa
+Liquidación de Beneficios
+&Logística
+SubSistema de Logística
+&Suministros
+&Generar Requerimientos Productos
+Generar Requerimientos Productos
+G&enerar Requerimientos Viveres
+&Aceptación de Requerimientos
+Aceptación de Requerimientos
+Orden de &Pedido
+Procesar Saldo de Pedidos
+&Compras
+Orden de &Compra
+Orden de &Servicio
+&Talonario Orden de Compra
+Compromiso Pactado
+&Almacen
+&Ingreso de Productos
+Ingreso de Mercaderia
+&Salida de Productos
+Salida de Mercaderia
+&Ingreso Productos x Lotes
+Solicitud de Pedido
+Traslados Pendientes de Ingreso
+Consumo de Com&bustible
+Kits de Piezas
+Kardex Inconsistencias
+Kardex Reproceso
+&Reportes
+Por &Documento
+Requerimiento
+Orden de Pedido
+Salida de Material
+Orden de Compra
+Nota de Ingreso
+Por &Producto
+Por Lista de &Requerimiento
+Por Orden de &Pedido
+Por Nota de &Ingreso
+Por &Salida de Material
+Productos Por Stock y Precio
+Buscar Productos
+Por Precio y Sucursal
+Por Órdenes de Compras y Servicios
+Control de OC y OS
+Servicios con Ingresos y Consumos
+Resumen de Compras y Servicios
+OC vs Ingresos
+Compromisos Pactados
+OC vs Distribución
+Consolidado de OC
+Por &Ingreso de Material
+&Consumo Promedio
+&Adquisición de Productos
+Cargos &Notas de Ingreso
+Cargos &Facturas
+Por Ingresos
+Por &Salida de Productos
+Detallado por &Productos
+Detallado por &Centro de Costo
+Consolidado por &Unidad Operativa
+Consolidado por &Centro de Costo
+Consolidado por Unidad Operativa &y Centro de Costo
+Por Consumo de Material
+Por Kardex
+Kardex
+Kardex de productos
+Inventario Valorizado
+Reproceso General de Kardex
+Movimientos Productos IQF
+Por Guías de Remisión
+Reporte de Guías por Producto y Línea
+Reporte de Control Guía Remisión
+Reporte Control Guías x Unid. Transporte
+Reporte de Control Guías de Remisión  Detallado
+Reporte Compras vs Pagados
+Seguimiento de Listas de &Requerimiento
+Por Atención de Pedidos
+Reporte Registro de IQF
+Reporte Pedidos vs Guías
+Nuevo Proceso Logística
+Aceptación de Requerimiento
+Pedido
+&Búsqueda de Notas de Ingreso
+Transferencia de Saldos Iniciales
+&Operaciones
+Captación de Cliente
+Hoja Ruta Semanal
+Rotación de Mercadería
+Reporte Visitas / Captación
+Plan Marketing 
+Plan Operativo
+Ubicación Zonas x Sucursal
+Registro de Cultivos
+Principales Cultivos
+Hoja de Vida
+Registro Detalle Hoja de Vida
+Conocimiento de Mercado
+Orden Solicitud Servicio 
+Orden Despacho Combustible
+Fac&turación
+SubSistema de Ventas
+Generar Guia Remisión
+Analisis Rotación Productos
+Registro Detalle Guía
+Generar Guia Transportista
+Generar Facturas
+Registro de Facturación
+Generar Guia
+Anular Fact/Boleta/GR
+Nota de Crédito
+Nota de Débito
+Nota de Venta
+Consultar Precios de Productos
+Consultar Precios y stock
+Registro de Cotización
+Registro de Convenio
+Acta de Entrega
+Reporte de Productos Pendientes de Entrega
+Registro de Vales de Crédito
+Reporte de Vales de Crédito
+Reporte de Facturas emitidas
+Ventas Efectuadas
+Resumen de Ventas Anual por Cliente
+Reporte de Consolidado de Ventas
+Reporte Consolidad Ventas Comparativo
+Reporte Consolidado de Productos x Sucursal
+Reporte de Créditos y Saldos
+Reporte Diferencias Precios Lista / Venta
+Reporte de Comisiones
+Comisiones 2014
+Reporte Registro Facturación / Ventas
+Validar Facturas vs  Kardex
+&Contabilidad
+SubSistema de Contabilidad
+&Provisiones
+&Misceláneos
+Misceláneos
+&Adquisiciones
+Adquisiciones varias
+&Recibo por Honorarios
+Recibo por Honorarios
+Ventas
+&Canje de Facturas Por Letras
+Canje de Facturas Por Letras
+&Registro de Liquidaciones
+&Liquidación de caja chica
+Liquidación de caja chica
+Registro de Depósitos
+Generar Diferencia Cambio - Mes
+Caja Chica Compra de Dólares
+Declaración Jurada
+Consultas y &Modificaciones
+Consultas y Modificaciones
+Generar Asientos MMPP - AUX
+&Generar Asientos por Nota de Ingreso
+Generar Asientos por Nota de Ingreso
+Generar Asientos por &Orden Servicio
+Generar Asientos Consumo Material
+Generar Asientos Reversión Consumo
+Generar Provisión P&lanillas
+Generar Provisión Cancelación Ventas
+Generar Asientos por Recibo de Egresos
+Cancelaciones Masivas
+Cancelación de Planillas
+&Transferencia de saldos
+Registro de &Ventas
+Registro de Ventas
+Registro de &Compras
+Registro de Compras
+Registro de No Domiciliados
+Resumen Ventas Sunat
+&Registro de Retenciones
+Libro de Retenciones
+Registro de Letras
+Reg&istros por Proveedor DAOT
+Reporte Planilla Gasto Movilidad
+Reporte de Comprobantes
+Reporte Comprobantes de Retención
+Reporte Provisión de Recibos de Egresos
+Reporte Gastos x Unidad de Transporte
+Análisis de Cuentas
+Saldos y Movimientos
+Saldos Dolarizados
+Anexos de Resultados
+Anexos de Resultados por Rangos
+Anticuamiento de documentos
+Cuentas de Ingresos
+Liquidación de PDT 621
+Asientos de una cuenta
+Generar Archivo Detracción
+Certificado 4ta Categoria
+Utilidades por pagar
+&Foliado de hojas
+&Activos
+Insertar Activos del Mes
+&Mantenimiento de Activos
+Depreciar Activos
+&Reportes de Activos
+Reportes de Activos
+Activos por Mes
+Provisión de depreciación
+&Libros Contables
+Procesar Mes
+Libro &Diario
+Libro Diario
+Libro Diario Simplificado
+Libro &Inventario y Balance
+Libro de Inventario y Balances Sunat
+Libro Caja y Bancos
+Libro Mayor General
+Balance Sunat
+Libro Activos Sunat
+Activos Fijos - Formato 7.4
+Libro Kardex Sunat
+Exportar a PLE
+Exportar a SIRE
+Estados Financieros
+&Balance de Comprobación
+Balance de Comprobación
+Estado de Ganancias y Pérdidas
+Análisis de EEFF
+&Finanzas
+&Caja
+Cuentas x Cobrar - Pagar 
+Voucher de Ingresos
+Voucher de Egresos
+Voucher de Egresos por Planillas
+Voucher de Egresos por ITF
+Voucher por Orden de Compra
+Voucher de cancelación y retenciones
+Comprobante de Retenciones
+&Bancos
+Mantenimiento de Chequeras
+Situación de Chequeras
+Mantenimiento de Presupuestos
+Tipos de Presupuesto de Pagos
+Cálculo de Letras
+Escríbalos
+Libro Bancos
+Libro Caja
+Sub Diario Caja y Bancos
+Posición Bancos
+Pagos Efectuados
+Generar Archivo Pagos Masivos
+Cheques Emitidos por banco
+Relación de Cheques
+Reporte Situación de Chequeras
+Conciliaciones Bancarias
+Conciliaciones &Bancarias
+Documentos Bancarios
+Situación de Documentos Bancarios
+Presupuestos
+Registros de Vouchers
+Retenciones y Percepciones de ITF
+Reporte de detracciones
+Inconsistencias
+Inconsistencias de Fechas
+Inconsistencias de provisión
+Inconsistencias de Registro
+Consultas de campos
+Notas de Ingresos Vs Provisión
+&Gerencial
+SubSistema de Gerencia
+Saldos Generales
+Flujo de Fondos
+Flujo de Caja Real
+Liquidacion de Impuestos
+Actualizar Datos Extra Contables
+Lista de Precios de Venta
+Comparativo x Embarcación
+Punto de Equilibrio
+Resumen Compras y Servicios
+Indicadores
+Analisis Stock de Producto
+Reportes de Letras
+Reporte Pendientes
+Reporte Pagos vs Productos
+Reporte Seguimiento de Lotes
+Reporte de Productos Vencidos y por Vencer
+Reporte Variación de Precios
+Stock - Ultimo Precio Compra
+Kardex Administrativo
+Kardex Nota de Venta
+Reporte Físico vs Valorizado
+Reporte de Venta por producto y línea
+Reporte de Ventas por Laboratorios y Subfamilias
+Ventas por productos - Laboratorios
+Reporte de Productos Dicovi
+Resumen Compra - Traslado - Ventas
+Reporte Análsis de Compras 
+Reporte de Consolidado de Compras
+Reporte de Ventas vs Pagos Efectuados
+Créditos Otorgados
+Reportes de Caja Chica
+Reporte de Caja Chica
+Reportes de Depositos
+Reporte de Bonificaciones Productos
+Compras sin Traslados
+Avances Cuotas del Mes
+Reporte de Ventas - Utilidad x Sucursal
+Ventas x Lotes - NI

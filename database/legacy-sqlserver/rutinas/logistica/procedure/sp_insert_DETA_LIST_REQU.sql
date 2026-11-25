@@ -1,0 +1,25 @@
+CREATE PROCEDURE [dbo].[sp_insert_DETA_LIST_REQU]
+	@CODI_DETA_LIST_REQU [char](10),
+	@CODI_LIST_REQU [char](8),
+	@CODI_PROD [char](8),
+	@CANTIDAD [decimal](9, 4),
+	@NRO_CUEN [char](7),
+	@codialma [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [DETALLE_LISTAREQUERIMIENTOS] 
+	 ( [CODI_DETA_LIST_REQU],
+	 [CODI_LIST_REQU],
+	 [CODI_PROD],
+	 [CANTIDAD],
+	 [NRO_CUEN],
+	[codi_alma]	) 
+ 
+VALUES 
+	( @CODI_DETA_LIST_REQU,
+	 @CODI_LIST_REQU,
+	 @CODI_PROD,
+	 @CANTIDAD,
+	 @NRO_CUEN ,
+	@codialma )
+GO

@@ -1,0 +1,28 @@
+CREATE PROCEDURE [dbo].[sp_insert_DETA_ORDE_serv]
+	@CODI_DETA_ORDE_COMP [char](12),
+	@CODI_ORDE_COMP [char](10),
+	@CODI_PROD [char](8),
+	@CANTIDAD [decimal](9, 4),
+	@PRECIO [decimal](9, 4),
+	@CODI_MONE [char](2),
+	@NRO_CUEN [char](7)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [DETALLE_ORDEN_servicio] 
+	 ( [CODI_DETA_ORDE_COMP],
+	 [CODI_ORDE_COMP],
+	 [CODI_PROD],
+	 [CANTIDAD],
+	 [PRECIO],
+	 [CODI_MONE],
+	 [NRO_CUEN]) 
+ 
+VALUES 
+	( @CODI_DETA_ORDE_COMP,
+	 @CODI_ORDE_COMP,
+	 @CODI_PROD,
+	 @CANTIDAD,
+	 @PRECIO,
+	 @CODI_MONE,
+	 @NRO_CUEN)
+GO

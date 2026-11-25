@@ -1,0 +1,65 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: sige
+
+resources:
+  - ../../base
+
+commonAnnotations:
+  sige.io/environment: dev
+
+# Reemplace OWNER por su organizacion en ghcr.io (o use `kustomize edit set image`).
+images:
+  - name: ghcr.io/OWNER/sige-ms-seguridad
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-ms-maestros
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-ms-logistica
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-ms-ventas
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-ms-contabilidad
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-ms-finanzas
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-ms-rrhh
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-ms-produccion
+    newTag: develop
+  - name: ghcr.io/OWNER/sige-frontend
+    newTag: develop
+
+patches:
+  # dev: 1 replica y recursos mas pequenos para todos los Deployments
+  - target:
+      kind: Deployment
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: all
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: app
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 256Mi
+                  limits:
+                    cpu: 500m
+                    memory: 512Mi
+  # dev: HPA 1..2
+  - target:
+      kind: HorizontalPodAutoscaler
+    patch: |-
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      metadata:
+        name: all
+      spec:
+        minReplicas: 1
+        maxReplicas: 2

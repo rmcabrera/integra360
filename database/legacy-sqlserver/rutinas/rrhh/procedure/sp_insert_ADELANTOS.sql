@@ -1,0 +1,43 @@
+CREATE PROCEDURE [dbo].[sp_insert_ADELANTOS]
+	@CODI_ADEL_1 [char](6),
+	@CODI_PERS_2 [char](5),
+	@NRO_ADEL_3 [int],
+	@FECH_ADEL_4 [datetime],
+	@MOTI_ADEL_5 [varchar](100),
+	@ESTA_PAGO_6 [bit],
+	@CODI_MONE_ADEL_7 [char](2),
+	@MONT_ADEL_8 [decimal](9, 2),
+	@TIPO_ADEL_9 [varchar](5),
+	@INTE_TIEM_DESC_10 [varchar](20),
+	@MONT_PAGO_11 [decimal](9, 2),
+	@SALDO_12 [decimal](9, 2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [ADELANTOS] 
+	 ( [CODI_ADEL],
+	 [CODI_PERS],
+	 [NRO_ADEL],
+	 [FECH_ADEL],
+	 [MOTI_ADEL],
+	 [ESTA_PAGO],
+	 [CODI_MONE_ADEL],
+	 [MONT_ADEL],
+	 [TIPO_ADEL],
+	 [INTE_TIEM_DESC],
+	 [MONT_PAGO],
+	 [SALDO]) 
+ 
+VALUES 
+	( @CODI_ADEL_1,
+	 @CODI_PERS_2,
+	 @NRO_ADEL_3,
+	 @FECH_ADEL_4,
+	 @MOTI_ADEL_5,
+	 @ESTA_PAGO_6,
+	 @CODI_MONE_ADEL_7,
+	 @MONT_ADEL_8,
+	 @TIPO_ADEL_9,
+	 @INTE_TIEM_DESC_10,
+	 @MONT_PAGO_11,
+	 @SALDO_12)
+GO

@@ -1,0 +1,9 @@
+CREATE PROCEDURE [dbo].[sp_delete_Pozas]
+	@CODI_poza_1 [char](2)
+WITH EXECUTE AS CALLER
+AS
+DELETE [POZAS] 
+
+WHERE 
+	( [CODI_POZA]	 = @CODI_POZA_1)
+GO

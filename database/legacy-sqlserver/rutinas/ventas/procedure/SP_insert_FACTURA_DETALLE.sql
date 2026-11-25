@@ -1,0 +1,31 @@
+CREATE PROCEDURE [dbo].[SP_insert_FACTURA_DETALLE]
+	@CODI_FACT_1 [char](10),
+	@CODI_DETA_1 [char](3),
+	@CODI_ITEM_1 [char](10),
+	@DESC_ITEM_1 [varchar](300),
+	@CODI_UNID_MEDI_1 [char](2),
+	@CANT_ITEM_1 [numeric](12, 3),
+	@PREC_ITEM_1 [numeric](12, 3),
+	@IMPO_ITEM_1 [numeric](12, 3)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [FACTURA_DETALLE] 
+	 ( [CODI_FACT],
+	 [CODI_DETA],
+	 [CODI_ITEM],
+	 [DESC_ITEM],
+	 [CODI_UNID_MEDI],
+	 [CANT_ITEM],
+	 [PREC_ITEM],
+	 [IMPO_ITEM]) 
+ 
+VALUES 
+	( @CODI_FACT_1,
+	 @CODI_DETA_1,
+	 @CODI_ITEM_1,
+	 @DESC_ITEM_1,
+	 @CODI_UNID_MEDI_1,
+	 @CANT_ITEM_1,
+	 @PREC_ITEM_1,
+	 @IMPO_ITEM_1)
+GO

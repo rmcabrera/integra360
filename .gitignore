@@ -1,0 +1,23 @@
+# Build
+target/
+dist/
+out-tsc/
+.angular/
+node_modules/
+*.log
+
+# Secretos locales
+.env
+*.env
+!.env.example
+*.pem
+*.key
+*.jks
+*.p12
+
+# IDE / SO
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

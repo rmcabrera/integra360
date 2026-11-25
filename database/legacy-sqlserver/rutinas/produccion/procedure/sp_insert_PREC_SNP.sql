@@ -1,0 +1,22 @@
+CREATE PROCEDURE [dbo].[sp_insert_PREC_SNP]
+	@CODI_pREC [char](10),
+	@CODI_SEMA [char](8),
+	@CODI_ESPE [char](2),
+	@PRECIO [decimal](12, 3),
+	@CODI_MONE [char](2)
+WITH EXECUTE AS CALLER
+AS
+INSERT INTO [PRECIO_SNP] 
+	 ( [CODI_prec],
+[CODI_SEMA],
+	 [CODI_ESPE],
+	 [PRECIO],
+	 [CODI_MONE]) 
+ 
+VALUES 
+	(  @CODI_pREC,
+@CODI_SEMA,
+	 @CODI_ESPE,
+	 @PRECIO,
+	 @CODI_MONE)
+GO
